@@ -1,0 +1,890 @@
+[
+  {
+    "CODIGOESTACION": 70,
+    "DENOMINACION": "SAN CRISTÓBAL INDUSTRIAL",
+    "coordinates": [
+      -3.69871853110087,
+      40.3319087269709
+    ]
+  },
+  {
+    "CODIGOESTACION": 69,
+    "DENOMINACION": "SAN CRISTÓBAL DE LOS ANGELES",
+    "coordinates": [
+      -3.68384596290414,
+      40.3423628474426
+    ]
+  },
+  {
+    "CODIGOESTACION": 85,
+    "DENOMINACION": "VALDELASFUENTES",
+    "coordinates": [
+      -3.65433529516077,
+      40.5474452767995
+    ]
+  },
+  {
+    "CODIGOESTACION": 84,
+    "DENOMINACION": "UNIVERSIDAD P. COMILLAS",
+    "coordinates": [
+      -3.68333993201117,
+      40.5540609679743
+    ]
+  },
+  {
+    "CODIGOESTACION": 15,
+    "DENOMINACION": "CANTOBLANCO UNIVERSIDAD",
+    "coordinates": [
+      -3.70034407149193,
+      40.5437838690789
+    ]
+  },
+  {
+    "CODIGOESTACION": 31,
+    "DENOMINACION": "FUENCARRAL",
+    "coordinates": [
+      -3.6823369858552,
+      40.5015587871928
+    ]
+  },
+  {
+    "CODIGOESTACION": 3,
+    "DENOMINACION": "ALCALÁ DE HENARES UNIVERSIDAD",
+    "coordinates": [
+      -3.33541297813764,
+      40.5053390295669
+    ]
+  },
+  {
+    "CODIGOESTACION": 63,
+    "DENOMINACION": "PUERTO NAVACERRADA",
+    "coordinates": [
+      -4.00473471352976,
+      40.7844094822926
+    ]
+  },
+  {
+    "CODIGOESTACION": 12,
+    "DENOMINACION": "AZUQUECA",
+    "coordinates": [
+      -3.26545621557629,
+      40.5610271578961
+    ]
+  },
+  {
+    "CODIGOESTACION": 45,
+    "DENOMINACION": "MECO",
+    "coordinates": [
+      -3.29865551437523,
+      40.5346161020491
+    ]
+  },
+  {
+    "CODIGOESTACION": 42,
+    "DENOMINACION": "MAJADAHONDA",
+    "coordinates": [
+      -3.84534271761289,
+      40.4742781071392
+    ]
+  },
+  {
+    "CODIGOESTACION": 13,
+    "DENOMINACION": "BARRIAL-C.COM.POZUELO, EL",
+    "coordinates": [
+      -3.80773786655938,
+      40.46537297434
+    ]
+  },
+  {
+    "CODIGOESTACION": 44,
+    "DENOMINACION": "MATAS, LAS",
+    "coordinates": [
+      -3.89683214632808,
+      40.5525196829737
+    ]
+  },
+  {
+    "CODIGOESTACION": 55,
+    "DENOMINACION": "PINAR DE LAS ROZAS",
+    "coordinates": [
+      -3.88216208959213,
+      40.5223001836185
+    ]
+  },
+  {
+    "CODIGOESTACION": 68,
+    "DENOMINACION": "ROZAS, LAS",
+    "coordinates": [
+      -3.8681233570257,
+      40.4942311770752
+    ]
+  },
+  {
+    "CODIGOESTACION": 62,
+    "DENOMINACION": "PUENTE ALCOCER",
+    "coordinates": [
+      -3.70516057452415,
+      40.3502834143922
+    ]
+  },
+  {
+    "CODIGOESTACION": 59,
+    "DENOMINACION": "POZO, EL",
+    "coordinates": [
+      -3.65622599439296,
+      40.375902051824
+    ]
+  },
+  {
+    "CODIGOESTACION": 87,
+    "DENOMINACION": "VALLECAS",
+    "coordinates": [
+      -3.62455169826311,
+      40.3822137769523
+    ]
+  },
+  {
+    "CODIGOESTACION": 51,
+    "DENOMINACION": "NUEVOS MINISTERIOS",
+    "coordinates": [
+      -3.69234406048768,
+      40.4466215880167
+    ]
+  },
+  {
+    "CODIGOESTACION": 92,
+    "DENOMINACION": "VILLAVERDE ALTO",
+    "coordinates": [
+      -3.71192794525494,
+      40.3412266558049
+    ]
+  },
+  {
+    "CODIGOESTACION": 72,
+    "DENOMINACION": "SAN JOSÉ DE VALDERAS",
+    "coordinates": [
+      -3.81588428698701,
+      40.3565332866752
+    ]
+  },
+  {
+    "CODIGOESTACION": 95,
+    "DENOMINACION": "ZARZAQUEMADA",
+    "coordinates": [
+      -3.74830343300632,
+      40.3408543837162
+    ]
+  },
+  {
+    "CODIGOESTACION": 65,
+    "DENOMINACION": "RECOLETOS",
+    "coordinates": [
+      -3.69085775950282,
+      40.4234090220186
+    ]
+  },
+  {
+    "CODIGOESTACION": 26,
+    "DENOMINACION": "DOCE DE OCTUBRE",
+    "coordinates": [
+      -3.69861351400181,
+      40.3789556348457
+    ]
+  },
+  {
+    "CODIGOESTACION": 106,
+    "DENOMINACION": "GARENA, LA",
+    "coordinates": [
+      -3.39316873878999,
+      40.4804325116477
+    ]
+  },
+  {
+    "CODIGOESTACION": 71,
+    "DENOMINACION": "SAN FERNANDO",
+    "coordinates": [
+      -3.53384860980655,
+      40.4426600661389
+    ]
+  },
+  {
+    "CODIGOESTACION": 16,
+    "DENOMINACION": "CERCEDILLA",
+    "coordinates": [
+      -4.06590455200656,
+      40.7375659739938
+    ]
+  },
+  {
+    "CODIGOESTACION": 11,
+    "DENOMINACION": "ATOCHA",
+    "coordinates": [
+      -3.6893018805662,
+      40.4065900429143
+    ]
+  },
+  {
+    "CODIGOESTACION": 115,
+    "DENOMINACION": "LOSA-NAVAS DE RIOFRIO, LA",
+    "coordinates": [
+      -4.14116289095347,
+      40.8566510723739
+    ]
+  },
+  {
+    "CODIGOESTACION": 118,
+    "DENOMINACION": "NAVALPERAL",
+    "coordinates": [
+      -4.40811850327122,
+      40.590651736651
+    ]
+  },
+  {
+    "CODIGOESTACION": 82,
+    "DENOMINACION": "TORRELODONES",
+    "coordinates": [
+      -3.95653762779187,
+      40.5745126029752
+    ]
+  },
+  {
+    "CODIGOESTACION": 113,
+    "DENOMINACION": "ESPINAR, EL",
+    "coordinates": [
+      -4.18952964924848,
+      40.7408301144182
+    ]
+  },
+  {
+    "CODIGOESTACION": 23,
+    "DENOMINACION": "COTOS",
+    "coordinates": [
+      -3.96452034029106,
+      40.8222598992008
+    ]
+  },
+  {
+    "CODIGOESTACION": 104,
+    "DENOMINACION": "HUMANES",
+    "coordinates": [
+      -3.82846516961472,
+      40.2556458289228
+    ]
+  },
+  {
+    "CODIGOESTACION": 52,
+    "DENOMINACION": "ORCASITAS",
+    "coordinates": [
+      -3.7044165807754,
+      40.3669052286135
+    ]
+  },
+  {
+    "CODIGOESTACION": 77,
+    "DENOMINACION": "SERNA, LA",
+    "coordinates": [
+      -3.79247550216173,
+      40.2967217765265
+    ]
+  },
+  {
+    "CODIGOESTACION": 36,
+    "DENOMINACION": "GETAFE SECTOR 3",
+    "coordinates": [
+      -3.73734148685727,
+      40.2882438369464
+    ]
+  },
+  {
+    "CODIGOESTACION": 43,
+    "DENOMINACION": "MARGARITAS-UNIVERSIDAD, LAS",
+    "coordinates": [
+      -3.72737365567329,
+      40.3230424328947
+    ]
+  },
+  {
+    "CODIGOESTACION": 93,
+    "DENOMINACION": "VILLAVERDE BAJO",
+    "coordinates": [
+      -3.68398281299012,
+      40.3526391825844
+    ]
+  },
+  {
+    "CODIGOESTACION": 91,
+    "DENOMINACION": "VILLALBA",
+    "coordinates": [
+      -4.0080952537596,
+      40.6263656783169
+    ]
+  },
+  {
+    "CODIGOESTACION": 97,
+    "DENOMINACION": "ÁVILA",
+    "coordinates": [
+      -4.66163998250145,
+      40.6584031155691
+    ]
+  },
+  {
+    "CODIGOESTACION": 98,
+    "DENOMINACION": "ARCOS DE JALÓN",
+    "coordinates": [
+      -2.24624210470786,
+      41.1669608601584
+    ]
+  },
+  {
+    "CODIGOESTACION": 99,
+    "DENOMINACION": "SEGOVIA",
+    "coordinates": [
+      -4.14771685537438,
+      40.9125986455604
+    ]
+  },
+  {
+    "CODIGOESTACION": 100,
+    "DENOMINACION": "SIGÜENZA",
+    "coordinates": [
+      -2.62954647037748,
+      41.1010044050328
+    ]
+  },
+  {
+    "CODIGOESTACION": 101,
+    "DENOMINACION": "TOLEDO",
+    "coordinates": [
+      -3.99492181391197,
+      39.8691292513393
+    ]
+  },
+  {
+    "CODIGOESTACION": 142,
+    "DENOMINACION": "AEROPUERTO T4",
+    "coordinates": [
+      -3.59333146148185,
+      40.4917675252236
+    ]
+  },
+  {
+    "CODIGOESTACION": 121,
+    "DENOMINACION": "MEDINA DEL CAMPO",
+    "coordinates": [
+      -4.9098826069616,
+      41.317328742187
+    ]
+  },
+  {
+    "CODIGOESTACION": 18,
+    "DENOMINACION": "CHAMARTÍN",
+    "coordinates": [
+      -3.68247227950156,
+      40.4721038240738
+    ]
+  },
+  {
+    "CODIGOESTACION": 90,
+    "DENOMINACION": "VICÁLVARO",
+    "coordinates": [
+      -3.59592862848846,
+      40.4013173443583
+    ]
+  },
+  {
+    "CODIGOESTACION": 114,
+    "DENOMINACION": "OTERO-HERREROS",
+    "coordinates": [
+      -4.20354659054673,
+      40.8009231288334
+    ]
+  },
+  {
+    "CODIGOESTACION": 30,
+    "DENOMINACION": "FANJUL",
+    "coordinates": [
+      -3.76856414867733,
+      40.3836512502097
+    ]
+  },
+  {
+    "CODIGOESTACION": 40,
+    "DENOMINACION": "LAGUNA",
+    "coordinates": [
+      -3.74422118931735,
+      40.3991760104392
+    ]
+  },
+  {
+    "CODIGOESTACION": 58,
+    "DENOMINACION": "PITIS",
+    "coordinates": [
+      -3.72584125609992,
+      40.4951037734193
+    ]
+  },
+  {
+    "CODIGOESTACION": 22,
+    "DENOMINACION": "COSLADA",
+    "coordinates": [
+      -3.56113619805104,
+      40.4237352848222
+    ]
+  },
+  {
+    "CODIGOESTACION": 41,
+    "DENOMINACION": "LEGANES",
+    "coordinates": [
+      -3.77148094085261,
+      40.3289856048277
+    ]
+  },
+  {
+    "CODIGOESTACION": 5,
+    "DENOMINACION": "ALCORCÓN",
+    "coordinates": [
+      -3.83173186292416,
+      40.3500822936339
+    ]
+  },
+  {
+    "CODIGOESTACION": 48,
+    "DENOMINACION": "MÓSTOLES",
+    "coordinates": [
+      -3.8634923772429,
+      40.3285029748079
+    ]
+  },
+  {
+    "CODIGOESTACION": 32,
+    "DENOMINACION": "FUENLABRADA",
+    "coordinates": [
+      -3.7988540076525,
+      40.2826773322693
+    ]
+  },
+  {
+    "CODIGOESTACION": 9,
+    "DENOMINACION": "ARAVACA",
+    "coordinates": [
+      -3.78585825590796,
+      40.448328064034
+    ]
+  },
+  {
+    "CODIGOESTACION": 24,
+    "DENOMINACION": "CUATRO VIENTOS",
+    "coordinates": [
+      -3.79143477618509,
+      40.3777060085738
+    ]
+  },
+  {
+    "CODIGOESTACION": 25,
+    "DENOMINACION": "DELICIAS",
+    "coordinates": [
+      -3.69276788285937,
+      40.4003697353198
+    ]
+  },
+  {
+    "CODIGOESTACION": 57,
+    "DENOMINACION": "PIRÁMIDES",
+    "coordinates": [
+      -3.71134041072823,
+      40.4025952660783
+    ]
+  },
+  {
+    "CODIGOESTACION": 8,
+    "DENOMINACION": "ARANJUEZ",
+    "coordinates": [
+      -3.61830844212316,
+      40.0348299422513
+    ]
+  },
+  {
+    "CODIGOESTACION": 19,
+    "DENOMINACION": "CIEMPOZUELOS",
+    "coordinates": [
+      -3.61002791377818,
+      40.1590628771053
+    ]
+  },
+  {
+    "CODIGOESTACION": 86,
+    "DENOMINACION": "VALDEMORO",
+    "coordinates": [
+      -3.66481585605174,
+      40.196042129028
+    ]
+  },
+  {
+    "CODIGOESTACION": 56,
+    "DENOMINACION": "PINTO",
+    "coordinates": [
+      -3.70373755831516,
+      40.2427904950031
+    ]
+  },
+  {
+    "CODIGOESTACION": 60,
+    "DENOMINACION": "POZUELO",
+    "coordinates": [
+      -3.80011939716674,
+      40.4472685400139
+    ]
+  },
+  {
+    "CODIGOESTACION": 117,
+    "DENOMINACION": "NAVAS DEL MARQUÉS, LAS",
+    "coordinates": [
+      -4.36147108272128,
+      40.5892291612494
+    ]
+  },
+  {
+    "CODIGOESTACION": 116,
+    "DENOMINACION": "ARÉVALO",
+    "coordinates": [
+      -4.70239813131336,
+      41.0481402186975
+    ]
+  },
+  {
+    "CODIGOESTACION": 35,
+    "DENOMINACION": "GETAFE INDUSTRIAL",
+    "coordinates": [
+      -3.70769412799133,
+      40.3054769300469
+    ]
+  },
+  {
+    "CODIGOESTACION": 1,
+    "DENOMINACION": "ÁGUILAS, LAS",
+    "coordinates": [
+      -3.78027315326551,
+      40.3811881492476
+    ]
+  },
+  {
+    "CODIGOESTACION": 4,
+    "DENOMINACION": "ALCOBENDAS-S.S. DE LOS REYES",
+    "coordinates": [
+      -3.63518676669724,
+      40.5465679550208
+    ]
+  },
+  {
+    "CODIGOESTACION": 74,
+    "DENOMINACION": "SAN YAGO",
+    "coordinates": [
+      -4.03110744814683,
+      40.6178650322728
+    ]
+  },
+  {
+    "CODIGOESTACION": 111,
+    "DENOMINACION": "VALLADOLID",
+    "coordinates": [
+      -4.72700493686286,
+      41.6421673174672
+    ]
+  },
+  {
+    "CODIGOESTACION": 38,
+    "DENOMINACION": "GUADALAJARA",
+    "coordinates": [
+      -3.18239003887205,
+      40.644082624678
+    ]
+  },
+  {
+    "CODIGOESTACION": 21,
+    "DENOMINACION": "COLMENAR VIEJO",
+    "coordinates": [
+      -3.77573173157435,
+      40.6449707961761
+    ]
+  },
+  {
+    "CODIGOESTACION": 83,
+    "DENOMINACION": "TRES CANTOS",
+    "coordinates": [
+      -3.71564421122259,
+      40.5984399405055
+    ]
+  },
+  {
+    "CODIGOESTACION": 37,
+    "DENOMINACION": "GOLOSO, EL",
+    "coordinates": [
+      -3.71407093516335,
+      40.5585725326678
+    ]
+  },
+  {
+    "CODIGOESTACION": 64,
+    "DENOMINACION": "RAMÓN Y CAJAL",
+    "coordinates": [
+      -3.69473363739967,
+      40.4882411242276
+    ]
+  },
+  {
+    "CODIGOESTACION": 76,
+    "DENOMINACION": "SANTA MARÍA DE LA ALAMEDA",
+    "coordinates": [
+      -4.26933127175928,
+      40.5689235750668
+    ]
+  },
+  {
+    "CODIGOESTACION": 67,
+    "DENOMINACION": "ROBLEDO DE CHAVELA",
+    "coordinates": [
+      -4.24671142202336,
+      40.5207817854289
+    ]
+  },
+  {
+    "CODIGOESTACION": 96,
+    "DENOMINACION": "ZORRERAS, LAS",
+    "coordinates": [
+      -4.04605511709608,
+      40.6094127746296
+    ]
+  },
+  {
+    "CODIGOESTACION": 61,
+    "DENOMINACION": "PRÍNCIPE PÍO",
+    "coordinates": [
+      -3.72026121054108,
+      40.4210716166165
+    ]
+  },
+  {
+    "CODIGOESTACION": 133,
+    "DENOMINACION": "FUENTE DE LA MORA",
+    "coordinates": [
+      -3.66282305192468,
+      40.4847451678866
+    ]
+  },
+  {
+    "CODIGOESTACION": 112,
+    "DENOMINACION": "ARIZA",
+    "coordinates": [
+      -2.05953873696869,
+      41.3096104579267
+    ]
+  },
+  {
+    "CODIGOESTACION": 66,
+    "DENOMINACION": "RETAMAS, LAS",
+    "coordinates": [
+      -3.84242095761015,
+      40.3418921382644
+    ]
+  },
+  {
+    "CODIGOESTACION": 94,
+    "DENOMINACION": "ZARZALEJO",
+    "coordinates": [
+      -4.15816962170102,
+      40.5387180198131
+    ]
+  },
+  {
+    "CODIGOESTACION": 20,
+    "DENOMINACION": "COLLADO MEDIANO",
+    "coordinates": [
+      -4.03587464330619,
+      40.6927554208208
+    ]
+  },
+  {
+    "CODIGOESTACION": 47,
+    "DENOMINACION": "MOLINOS, LOS",
+    "coordinates": [
+      -4.06680924664732,
+      40.7073440522745
+    ]
+  },
+  {
+    "CODIGOESTACION": 6,
+    "DENOMINACION": "ALPEDRETE",
+    "coordinates": [
+      -4.03505875103054,
+      40.6581629513706
+    ]
+  },
+  {
+    "CODIGOESTACION": 50,
+    "DENOMINACION": "NEGRALES, LOS",
+    "coordinates": [
+      -4.02189442763978,
+      40.6385765314888
+    ]
+  },
+  {
+    "CODIGOESTACION": 33,
+    "DENOMINACION": "GALAPAGAR-LA NAVATA",
+    "coordinates": [
+      -3.98184939124204,
+      40.6001136095974
+    ]
+  },
+  {
+    "CODIGOESTACION": 10,
+    "DENOMINACION": "ASAMBLEA DE MADRID-ENTREVÍAS",
+    "coordinates": [
+      -3.66800400641146,
+      40.3816714898358
+    ]
+  },
+  {
+    "CODIGOESTACION": 75,
+    "DENOMINACION": "SANTA EUGENIA",
+    "coordinates": [
+      -3.60906393170746,
+      40.3869855749515
+    ]
+  },
+  {
+    "CODIGOESTACION": 2,
+    "DENOMINACION": "ALCALÁ DE HENARES",
+    "coordinates": [
+      -3.36633567031405,
+      40.4890302757429
+    ]
+  },
+  {
+    "CODIGOESTACION": 81,
+    "DENOMINACION": "TORREJÓN DE ARDOZ",
+    "coordinates": [
+      -3.47981980744796,
+      40.4546014889637
+    ]
+  },
+  {
+    "CODIGOESTACION": 120,
+    "DENOMINACION": "GUIMORCONDO",
+    "coordinates": [
+      -4.61499700593635,
+      40.6490026876306
+    ]
+  },
+  {
+    "CODIGOESTACION": 7,
+    "DENOMINACION": "ALUCHE",
+    "coordinates": [
+      -3.76074456147934,
+      40.38562662647
+    ]
+  },
+  {
+    "CODIGOESTACION": 28,
+    "DENOMINACION": "EMBAJADORES",
+    "coordinates": [
+      -3.7026243551753,
+      40.4051252294599
+    ]
+  },
+  {
+    "CODIGOESTACION": 53,
+    "DENOMINACION": "PARLA",
+    "coordinates": [
+      -3.76936294092694,
+      40.2407668404867
+    ]
+  },
+  {
+    "CODIGOESTACION": 29,
+    "DENOMINACION": "ESCORIAL, EL",
+    "coordinates": [
+      -4.13233067695818,
+      40.5852671523362
+    ]
+  },
+  {
+    "CODIGOESTACION": 46,
+    "DENOMINACION": "MÉNDEZ ÁLVARO",
+    "coordinates": [
+      -3.67807918366819,
+      40.3953783495887
+    ]
+  },
+  {
+    "CODIGOESTACION": 105,
+    "DENOMINACION": "PARQUE POLVORANCA",
+    "coordinates": [
+      -3.78334388400719,
+      40.3125041024048
+    ]
+  },
+  {
+    "CODIGOESTACION": 49,
+    "DENOMINACION": "MÓSTOLES EL SOTO",
+    "coordinates": [
+      -3.88233705603305,
+      40.3308924503373
+    ]
+  },
+  {
+    "CODIGOESTACION": 122,
+    "DENOMINACION": "SOL",
+    "coordinates": [
+      -3.70309445993443,
+      40.4168455100502
+    ]
+  },
+  {
+    "CODIGOESTACION": 103,
+    "DENOMINACION": "CASAR, EL",
+    "coordinates": [
+      -3.70983541052046,
+      40.3184661519122
+    ]
+  },
+  {
+    "CODIGOESTACION": 34,
+    "DENOMINACION": "GETAFE CENTRO",
+    "coordinates": [
+      -3.73394177808755,
+      40.3100956155042
+    ]
+  },
+  {
+    "CODIGOESTACION": 119,
+    "DENOMINACION": "HERRADÓN-LA CAÑADA",
+    "coordinates": [
+      -4.49504735613434,
+      40.5992523119568
+    ]
+  },
+  {
+    "CODIGOESTACION": 145,
+    "DENOMINACION": "MIRASIERRA-PACO DE LUCÍA",
+    "coordinates": [
+      -3.70918040555026,
+      40.49970527565
+    ]
+  },
+  {
+    "CODIGOESTACION": 143,
+    "DENOMINACION": "SOTO DEL HENARES",
+    "coordinates": [
+      -3.44133944195429,
+      40.4635279418343
+    ]
+  },
+  {
+    "CODIGOESTACION": 144,
+    "DENOMINACION": "VALDEBEBAS",
+    "coordinates": [
+      -3.61642467813448,
+      40.482301536326
+    ]
+  }
+]

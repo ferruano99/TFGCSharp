@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TransportePublicoModelStoreContainer" CdmEntityContainer="TransportePublicoEntities">
+    <EntitySetMapping Name="metro_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.metro_estacion">
+        <MappingFragment StoreEntitySet="metro_estacion">
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="CODIGOCTMESTACIONREDMETRO" ColumnName="CODIGOCTMESTACIONREDMETRO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="metro_tramo">
+      <EntityTypeMapping TypeName="TransportePublicoModel.metro_tramo">
+        <MappingFragment StoreEntitySet="metro_tramo">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
