@@ -1,5 +1,6 @@
 /** CARGA DEL MAPA **/
 //Creamos mapa
+//https://stackoverflow.com/questions/28599128/how-to-add-a-loading-screen-when-doing-a-ajax-call-in-phonegap
 let map = L.map('map').setView([40.4157390642727, -3.7071191753628954], 13);
 let url = ""
 
@@ -18,23 +19,58 @@ var destino = document.getElementById("destination");
 
 //IDA
 $("#submit-ida").click(function () {
-    busquedaViajes("resultados-ida", origen)
+    if ($("#start").val() == "") {
+        Swal.fire({
+            title: 'Origen',
+            text: 'Por favor, escriba un punto de partida',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#dd4646'
+        });
+    } else {
+        busquedaViajes("resultados-ida", origen)
+    }
 });
 
 origen.addEventListener("keyup", (event) => {
     if (event.key == "Enter") {
-        busquedaViajes("resultados-ida", origen);
+        if ($("#start").val() == "") {
+            Swal.fire({
+                title: 'Origen',
+                text: 'Por favor, escriba un punto de partida',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#dd4646'
+            });
+        } else
+            busquedaViajes("resultados-ida", origen);
     }
 })
 
 //VUELTA
 $("#submit-vuelta").click(function () {
-    busquedaViajes("resultados-vuelta", destino)
+    if ($("#destination").val() == "") {
+        Swal.fire({
+            title: 'Escriba el destino',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#dd4646'
+        });
+    } else
+        busquedaViajes("resultados-vuelta", destino)
 });
 
 destino.addEventListener("keyup", (event) => {
     if (event.key == "Enter") {
-        busquedaViajes("resultados-vuelta", destino);
+        if ($("#destination").val() == "") {
+            Swal.fire({
+                title: 'Escriba el origen',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#dd4646'
+            });
+        } else
+            busquedaViajes("resultados-vuelta", destino);
     }
 });
 

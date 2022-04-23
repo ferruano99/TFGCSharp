@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="metro_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="CODIGOCTMESTACIONREDMETRO" Type="int" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="100" />
+    <Property Name="lon" Type="float" />
+    <Property Name="lat" Type="float" />
+  </EntityType>
+  <EntityType Name="metro_tramo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="int" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="10" />
+    <Property Name="SENTIDO" Type="int" />
+  </EntityType>
+  <Association Name="FK_metro_tramo_metro_estacion">
+    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
+    <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metro_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="metro_tramo">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TransportePublicoModelStoreContainer">
+    <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="metro_tramo" EntitySet="metro_tramo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

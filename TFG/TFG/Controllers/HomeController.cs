@@ -1,8 +1,10 @@
 ﻿using Itinero;
 using Itinero.IO.Osm;
 using Itinero.Osm.Vehicles;
+using Itinero.Transit; //ver si funciona
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,21 +23,23 @@ namespace TFG.Controllers
             string carPath = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
             if (!System.IO.File.Exists(pedestrianPath))
             {
-                SerializeMap(1); //1 para peatón
+                SerializeMap(Vehicle.Pedestrian); //1 para peatón
             }
             if (!System.IO.File.Exists(carPath))
             {
-                SerializeMap(2); //2 para coche
+                SerializeMap(Vehicle.Pedestrian); //2 para coche
             }
             return View();
         }
 
         public ActionResult FindPath(FormCollection form)
         {
-            double latOrig = double.Parse(form["latOrig"]);
-            double lonOrig = double.Parse(form["lonOrig"]);
-            double latDest = double.Parse(form["latDest"]);
-            double lonDest = double.Parse(form["lonDest"]);
+            var valor = form["latOrig"].ToString();
+            var valor2 = form["latOrig"];
+            double latOrig = double.Parse(form["latOrig"], CultureInfo.InvariantCulture);
+            double lonOrig = double.Parse(form["lonOrig"], CultureInfo.InvariantCulture);
+            double latDest = double.Parse(form["latDest"], CultureInfo.InvariantCulture);
+            double lonDest = double.Parse(form["lonDest"], CultureInfo.InvariantCulture);
 
             NodeTransport orig = new NodeTransport { lat = latOrig, lon = lonOrig };
             NodeTransport dest = new NodeTransport { lat = latDest, lon = lonDest };
@@ -46,7 +50,7 @@ namespace TFG.Controllers
 
             return Json(new
             {
-                Hola = GetDistanceItinero(orig, dest, Vehicles.Car)
+                Hola = GetDistanceItinero(orig, dest, Vehicle.Car)
             });
         }
 
@@ -83,6 +87,7 @@ namespace TFG.Controllers
                         continue;
                     }
                     //Recoger ladistancia (probablemente lo haga con itinero para el primer nodo, que será al q tenga que ir andando. Para el resto, mediante distancia euclídea)
+
                 }
             }
             return closedSet;
@@ -112,33 +117,34 @@ namespace TFG.Controllers
         private float GetDistanceItinero(NodeTransport orig, NodeTransport dest, Itinero.Profiles.Vehicle vehicle) //https://blog.vincentcos.tel/itinero/
         {
             RouterDb routerDb = null;
+            string path = null;
             if (vehicle.Equals(Vehicle.Car))
             {
-                var path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
-
-                using (var stream = new FileInfo(path).OpenRead())
-                {
-                    routerDb = RouterDb.Deserialize(stream);
-                }
+                path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
             }
             else if (vehicle.Equals(Vehicle.Pedestrian))
             {
-                var path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-pedestrian.routerdb");
+                path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-pedestrian.routerdb");
 
-                using (var stream = new FileInfo(path).OpenRead())
-                {
-                    routerDb = RouterDb.Deserialize(stream);
-                }
             }
-            var router = new Router(routerDb);
-            var profile = vehicle.Fastest();
+            using (var stream = new FileInfo(path).OpenRead())
+            {
+                routerDb = RouterDb.Deserialize(stream, RouterDbProfile.NoCache);
+                var router = new Router(routerDb);
+                var profile = vehicle.Fastest();
+                //https://www.google.com/search?q=build+x64+visual+studio&sxsrf=APq-WBuhyq-UCQbZrwKAUD16nxI7zj9F2A%3A1650654811681&ei=W_5iYtigKZe7lwTc06OABA&ved=0ahUKEwiYusmtsKj3AhWX3YUKHdzpCEAQ4dUDCA8&uact=5&oq=build+x64+visual+studio&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIHCCMQsAMQJzIHCCMQsAMQJzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwA0oECEEYAEoECEYYAFAAWABglhNoAnAAeACAAQCIAQCSAQCYAQDIAQrAAQE&sclient=gws-wiz-serp
+                //https://stackoverflow.com/questions/18892159/why-cant-i-set-asp-net-mvc-4-project-to-be-x64
 
-            var start = router.Resolve(profile, Convert.ToSingle(orig.lat), Convert.ToSingle(orig.lon));
-            var end = router.Resolve(profile, Convert.ToSingle(dest.lat), Convert.ToSingle(dest.lon));
+                //Error dimensiones matriz
+                //https://social.msdn.microsoft.com/Forums/vstudio/en-US/5850560d-a4a3-4cf5-be9e-b71026d1e175/systemoutofmemoryexception-array-dimensions-exceeded-supported-range-on-dataset?forum=vbgeneral
+                var start = router.Resolve(profile, Convert.ToSingle(orig.lat), Convert.ToSingle(orig.lon)); //cambiar compilador a x64
 
-            var route = router.Calculate(profile, start, end);
+                var end = router.Resolve(profile, Convert.ToSingle(dest.lat), Convert.ToSingle(dest.lon));
 
-            return route.TotalDistance;
+                var route = router.Calculate(profile, start, end);
+
+                return route.TotalDistance;
+            }
         }
 
         private void SerializeMap(Itinero.Profiles.Vehicle vehicle)
@@ -148,17 +154,17 @@ namespace TFG.Controllers
             string path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/madrid-latest.osm.pbf");
             using (var stream = new FileInfo(path).OpenRead())
             {
-                routerDb.LoadOsmData(stream, Vehicle.Car);
+                routerDb.LoadOsmData(stream, vehicle);
             }
             string vehiclePath = "";
 
             if (vehicle.Equals(Vehicle.Car))
             {
-                vehiclePath = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-pedestrian.routerdb");
+                vehiclePath = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
             }
             else if (vehicle.Equals(Vehicle.Pedestrian))
             {
-                vehiclePath = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
+                vehiclePath = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-pedestrian.routerdb");
             }
 
             using (var stream = new FileInfo(vehiclePath).Open(FileMode.Create))

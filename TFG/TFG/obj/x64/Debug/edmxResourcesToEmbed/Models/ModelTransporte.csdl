@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransportePublicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="metro_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOCTMESTACIONREDMETRO" Type="Int32" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lat" Type="Double" />
+    <NavigationProperty Name="metro_tramo" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_estacion" ToRole="metro_tramo" />
+  </EntityType>
+  <EntityType Name="metro_tramo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Int32" />
+    <NavigationProperty Name="metro_estacion" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_tramo" ToRole="metro_estacion" />
+  </EntityType>
+  <Association Name="FK_metro_tramo_metro_estacion">
+    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
+    <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metro_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="metro_tramo">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
+    <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" />
+    <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="metro_tramo" EntitySet="metro_tramo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
