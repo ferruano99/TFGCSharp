@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e81577c29d5642609009e39c1a7993d7" Name="Diagram1">
         <EntityTypeShape EntityType="TransportePublicoModel.metro_estacion" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportePublicoModel.metro_tramo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="TransportePublicoModel.FK_metro_tramo_metro_estacion" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TransportePublicoModel.metro_orden_linea" Width="1.5" PointX="3" PointY="5.5" />
+        <AssociationConnector Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

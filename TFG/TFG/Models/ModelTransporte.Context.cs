@@ -26,6 +26,6 @@ namespace TFG.Models
         }
     
         public virtual DbSet<metro_estacion> metro_estacion { get; set; }
-        public virtual DbSet<metro_tramo> metro_tramo { get; set; }
+        public virtual DbSet<metro_orden_linea> metro_orden_linea { get; set; }
     }
 }

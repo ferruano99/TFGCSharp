@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="metro_estacion">
           <Key>
             <PropertyRef Name="CODIGOESTACION" />
@@ -15,37 +15,40 @@
           <Property Name="lon" Type="float" />
           <Property Name="lat" Type="float" />
         </EntityType>
-        <EntityType Name="metro_tramo">
+        <EntityType Name="metro_orden_linea">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="OBJECTID" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="CODIGOESTACION" Type="int" />
-          <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="10" />
-          <Property Name="SENTIDO" Type="int" />
+          <Property Name="OBJECTID" Type="smallint" Nullable="false" />
+          <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SENTIDO" Type="tinyint" Nullable="false" />
+          <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+          <Property Name="NUMEROORDEN" Type="tinyint" Nullable="false" />
+          <Property Name="DENOMINACION" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DIRECCION" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
-        <Association Name="FK_metro_tramo_metro_estacion">
-          <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
-          <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+        <Association Name="FK_metro_orden_linea_metro_estacion">
+          <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="1" />
+          <End Role="metro_orden_linea" Type="Self.metro_orden_linea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="metro_estacion">
               <PropertyRef Name="CODIGOESTACION" />
             </Principal>
-            <Dependent Role="metro_tramo">
+            <Dependent Role="metro_orden_linea">
               <PropertyRef Name="CODIGOESTACION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TransportePublicoModelStoreContainer">
           <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
+          <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="Self.FK_metro_orden_linea_metro_estacion">
             <End Role="metro_estacion" EntitySet="metro_estacion" />
-            <End Role="metro_tramo" EntitySet="metro_tramo" />
+            <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TransportePublicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -58,38 +61,42 @@
           <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="lon" Type="Double" />
           <Property Name="lat" Type="Double" />
-          <NavigationProperty Name="metro_tramo" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_estacion" ToRole="metro_tramo" />
+          <NavigationProperty Name="metro_orden_linea" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_estacion" ToRole="metro_orden_linea" />
         </EntityType>
-        <EntityType Name="metro_tramo">
+        <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
+          <EntitySet Name="metro_orden_linea" EntityType="TransportePublicoModel.metro_orden_linea" />
+          <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion">
+            <End Role="metro_estacion" EntitySet="metro_estacion" />
+            <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="metro_orden_linea">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="OBJECTID" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="CODIGOESTACION" Type="Int32" />
-          <Property Name="NUMEROLINEAUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SENTIDO" Type="Int32" />
-          <NavigationProperty Name="metro_estacion" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_tramo" ToRole="metro_estacion" />
+          <Property Name="OBJECTID" Type="Int16" Nullable="false" />
+          <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SENTIDO" Type="Byte" Nullable="false" />
+          <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+          <Property Name="NUMEROORDEN" Type="Byte" Nullable="false" />
+          <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="metro_estacion" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_orden_linea" ToRole="metro_estacion" />
         </EntityType>
-        <Association Name="FK_metro_tramo_metro_estacion">
-          <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
-          <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+        <Association Name="FK_metro_orden_linea_metro_estacion">
+          <End Type="TransportePublicoModel.metro_estacion" Role="metro_estacion" Multiplicity="1" />
+          <End Type="TransportePublicoModel.metro_orden_linea" Role="metro_orden_linea" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="metro_estacion">
               <PropertyRef Name="CODIGOESTACION" />
             </Principal>
-            <Dependent Role="metro_tramo">
+            <Dependent Role="metro_orden_linea">
               <PropertyRef Name="CODIGOESTACION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
-          <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" />
-          <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
-            <End Role="metro_estacion" EntitySet="metro_estacion" />
-            <End Role="metro_tramo" EntitySet="metro_tramo" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -107,13 +114,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="metro_tramo">
-            <EntityTypeMapping TypeName="TransportePublicoModel.metro_tramo">
-              <MappingFragment StoreEntitySet="metro_tramo">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="metro_orden_linea">
+            <EntityTypeMapping TypeName="TransportePublicoModel.metro_orden_linea">
+              <MappingFragment StoreEntitySet="metro_orden_linea">
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
                 <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
-                <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
                 <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+                <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

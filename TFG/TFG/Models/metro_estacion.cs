@@ -17,7 +17,7 @@ namespace TFG.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public metro_estacion()
         {
-            this.metro_tramo = new HashSet<metro_tramo>();
+            this.metro_orden_linea = new HashSet<metro_orden_linea>();
         }
     
         public int CODIGOESTACION { get; set; }
@@ -27,6 +27,6 @@ namespace TFG.Models
         public Nullable<double> lat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<metro_tramo> metro_tramo { get; set; }
+        public virtual ICollection<metro_orden_linea> metro_orden_linea { get; set; }
     }
 }

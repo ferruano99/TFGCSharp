@@ -198,7 +198,7 @@
     <Compile Include="Models\metro_estacion.cs">
       <DependentUpon>ModelTransporte.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\metro_tramo.cs">
+    <Compile Include="Models\metro_orden_linea.cs">
       <DependentUpon>ModelTransporte.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelTransporte.Context.cs">

@@ -9,36 +9,40 @@
     <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="lon" Type="Double" />
     <Property Name="lat" Type="Double" />
-    <NavigationProperty Name="metro_tramo" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_estacion" ToRole="metro_tramo" />
+    <NavigationProperty Name="metro_orden_linea" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_estacion" ToRole="metro_orden_linea" />
   </EntityType>
-  <EntityType Name="metro_tramo">
+  <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
+    <EntitySet Name="metro_orden_linea" EntityType="TransportePublicoModel.metro_orden_linea" />
+    <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="metro_orden_linea">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="OBJECTID" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="CODIGOESTACION" Type="Int32" />
-    <Property Name="NUMEROLINEAUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="SENTIDO" Type="Int32" />
-    <NavigationProperty Name="metro_estacion" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_tramo" ToRole="metro_estacion" />
+    <Property Name="OBJECTID" Type="Int16" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Byte" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="Byte" Nullable="false" />
+    <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="metro_estacion" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_orden_linea" ToRole="metro_estacion" />
   </EntityType>
-  <Association Name="FK_metro_tramo_metro_estacion">
-    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
-    <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+  <Association Name="FK_metro_orden_linea_metro_estacion">
+    <End Type="TransportePublicoModel.metro_estacion" Role="metro_estacion" Multiplicity="1" />
+    <End Type="TransportePublicoModel.metro_orden_linea" Role="metro_orden_linea" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="metro_estacion">
         <PropertyRef Name="CODIGOESTACION" />
       </Principal>
-      <Dependent Role="metro_tramo">
+      <Dependent Role="metro_orden_linea">
         <PropertyRef Name="CODIGOESTACION" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
-    <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" />
-    <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
-      <End Role="metro_estacion" EntitySet="metro_estacion" />
-      <End Role="metro_tramo" EntitySet="metro_tramo" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

@@ -12,12 +12,16 @@ namespace TFG.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class metro_tramo
+    public partial class metro_orden_linea
     {
-        public int id { get; set; }
-        public Nullable<int> CODIGOESTACION { get; set; }
+        public short OBJECTID { get; set; }
         public string NUMEROLINEAUSUARIO { get; set; }
-        public Nullable<int> SENTIDO { get; set; }
+        public byte SENTIDO { get; set; }
+        public int CODIGOESTACION { get; set; }
+        public byte NUMEROORDEN { get; set; }
+        public string DENOMINACION { get; set; }
+        public string MUNICIPIO { get; set; }
+        public string DIRECCION { get; set; }
     
         public virtual metro_estacion metro_estacion { get; set; }
     }

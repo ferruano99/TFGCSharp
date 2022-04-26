@@ -162,9 +162,9 @@ function busquedaViajes(id, input) {
     var xmlhttp = new XMLHttpRequest(), //para recoger la información
         method = "GET",
         url = "https://nominatim.openstreetmap.org/search?format=json&limit=10&q=" + input.value;
-    if (!input.value.includes("Comunidad de Madrid")) {
-        url += ", Comunidad de Madrid"
-    }
+    //if (!input.value.includes("Comunidad de Madrid")) { CAMBIAR
+    //    url += ", Comunidad de Madrid"
+    //} 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var myArr = JSON.parse(this.responseText);

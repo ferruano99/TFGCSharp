@@ -10,33 +10,37 @@
     <Property Name="lon" Type="float" />
     <Property Name="lat" Type="float" />
   </EntityType>
-  <EntityType Name="metro_tramo">
+  <EntityType Name="metro_orden_linea">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="OBJECTID" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="CODIGOESTACION" Type="int" />
-    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="10" />
-    <Property Name="SENTIDO" Type="int" />
+    <Property Name="OBJECTID" Type="smallint" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SENTIDO" Type="tinyint" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="tinyint" Nullable="false" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DIRECCION" Type="nvarchar" MaxLength="500" Nullable="false" />
   </EntityType>
-  <Association Name="FK_metro_tramo_metro_estacion">
-    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
-    <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+  <Association Name="FK_metro_orden_linea_metro_estacion">
+    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="1" />
+    <End Role="metro_orden_linea" Type="Self.metro_orden_linea" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="metro_estacion">
         <PropertyRef Name="CODIGOESTACION" />
       </Principal>
-      <Dependent Role="metro_tramo">
+      <Dependent Role="metro_orden_linea">
         <PropertyRef Name="CODIGOESTACION" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="TransportePublicoModelStoreContainer">
     <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
+    <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="Self.FK_metro_orden_linea_metro_estacion">
       <End Role="metro_estacion" EntitySet="metro_estacion" />
-      <End Role="metro_tramo" EntitySet="metro_tramo" />
+      <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

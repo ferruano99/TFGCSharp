@@ -12,13 +12,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="metro_tramo">
-      <EntityTypeMapping TypeName="TransportePublicoModel.metro_tramo">
-        <MappingFragment StoreEntitySet="metro_tramo">
-          <ScalarProperty Name="id" ColumnName="id" />
+    <EntitySetMapping Name="metro_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.metro_orden_linea">
+        <MappingFragment StoreEntitySet="metro_orden_linea">
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
           <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
-          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
           <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
