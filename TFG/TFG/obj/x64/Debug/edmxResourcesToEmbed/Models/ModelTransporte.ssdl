@@ -12,9 +12,8 @@
   </EntityType>
   <EntityType Name="metro_orden_linea">
     <Key>
-      <PropertyRef Name="OBJECTID" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="OBJECTID" Type="smallint" Nullable="false" />
     <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="SENTIDO" Type="tinyint" Nullable="false" />
     <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
@@ -22,6 +21,7 @@
     <Property Name="DENOMINACION" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="DIRECCION" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <Association Name="FK_metro_orden_linea_metro_estacion">
     <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="1" />
@@ -35,6 +35,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="sp_get_transfers_from_line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="line" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="TransportePublicoModelStoreContainer">
     <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />

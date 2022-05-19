@@ -10,19 +10,14 @@
 namespace TFG.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class metro_orden_linea
+    public partial class sp_get_transfers_from_line_Result
     {
-        public string NUMEROLINEAUSUARIO { get; set; }
-        public byte SENTIDO { get; set; }
         public int CODIGOESTACION { get; set; }
-        public byte NUMEROORDEN { get; set; }
         public string DENOMINACION { get; set; }
-        public string MUNICIPIO { get; set; }
-        public string DIRECCION { get; set; }
-        public int ID { get; set; }
-    
-        public virtual metro_estacion metro_estacion { get; set; }
+        public byte NUMEROORDEN { get; set; }
+        public string NUMEROLINEAUSUARIO { get; set; }
+        public Nullable<double> lat { get; set; }
+        public Nullable<double> lon { get; set; }
     }
 }

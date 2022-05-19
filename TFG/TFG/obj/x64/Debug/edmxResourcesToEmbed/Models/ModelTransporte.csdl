@@ -13,17 +13,27 @@
   </EntityType>
   <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
+    <FunctionImport Name="sp_get_transfers_from_line" ReturnType="Collection(TransportePublicoModel.sp_get_transfers_from_line_Result)">
+      <Parameter Name="line" Mode="In" Type="String" />
+    </FunctionImport>
     <EntitySet Name="metro_orden_linea" EntityType="TransportePublicoModel.metro_orden_linea" />
     <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion">
       <End Role="metro_estacion" EntitySet="metro_estacion" />
       <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
     </AssociationSet>
   </EntityContainer>
+  <ComplexType Name="sp_get_transfers_from_line_Result">
+    <Property Type="Int32" Name="CODIGOESTACION" Nullable="false" />
+    <Property Type="String" Name="DENOMINACION" Nullable="true" MaxLength="100" />
+    <Property Type="Byte" Name="NUMEROORDEN" Nullable="false" />
+    <Property Type="String" Name="NUMEROLINEAUSUARIO" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="lat" Nullable="true" />
+    <Property Type="Double" Name="lon" Nullable="true" />
+  </ComplexType>
   <EntityType Name="metro_orden_linea">
     <Key>
-      <PropertyRef Name="OBJECTID" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="OBJECTID" Type="Int16" Nullable="false" />
     <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SENTIDO" Type="Byte" Nullable="false" />
     <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
@@ -31,6 +41,7 @@
     <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="metro_estacion" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_orden_linea" ToRole="metro_estacion" />
   </EntityType>
   <Association Name="FK_metro_orden_linea_metro_estacion">

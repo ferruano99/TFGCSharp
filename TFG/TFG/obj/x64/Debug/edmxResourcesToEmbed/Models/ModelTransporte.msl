@@ -12,9 +12,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_get_transfers_from_line" FunctionName="TransportePublicoModel.Store.sp_get_transfers_from_line">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportePublicoModel.sp_get_transfers_from_line_Result">
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <EntitySetMapping Name="metro_orden_linea">
       <EntityTypeMapping TypeName="TransportePublicoModel.metro_orden_linea">
         <MappingFragment StoreEntitySet="metro_orden_linea">
+          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
           <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
           <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
@@ -22,7 +35,6 @@
           <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
           <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
           <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
-          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

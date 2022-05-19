@@ -6,18 +6,13 @@ using System.Web;
 namespace TFG.Models
 {
 
-    //public enum TransportType
-    //{
-    //    Metro, BusUrbano, BusInterurbano, Cercanias, MetroLigero, OnFoot
-    //}
-
     public class NodeTransport
     {
         public int? id { get; set; } //codigoestacion
+        public int? codigoCTM { get; set; }
         public string linea { get; set; }
         public int ordenLinea { get; set; }
         public string denominacion { get; set; }
-        //public TransportType tipo { get; set; } //si es bus metro tal
         public double? lat { get; set; }
         public double? lon { get; set; }
         public double gCost { get; set; }
@@ -30,5 +25,19 @@ namespace TFG.Models
                 return gCost + hCost;
             }
         }
+
+        public override bool Equals(Object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                NodeTransport nt = (NodeTransport)obj;
+                return id == nt.id;
+            }
+        }
     }
+
 }

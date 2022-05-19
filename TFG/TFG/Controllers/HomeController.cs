@@ -34,8 +34,6 @@ namespace TFG.Controllers
 
         public ActionResult FindPath(FormCollection form)
         {
-            var valor = form["latOrig"].ToString();
-            var valor2 = form["latOrig"];
             double latOrig = double.Parse(form["latOrig"], CultureInfo.InvariantCulture);
             double lonOrig = double.Parse(form["lonOrig"], CultureInfo.InvariantCulture);
             double latDest = double.Parse(form["latDest"], CultureInfo.InvariantCulture);
@@ -64,10 +62,6 @@ namespace TFG.Controllers
             //destino
             var destNearList = GetNearestMetroStations(dest, orig);
 
-            //de momento dejar
-            closedSet.Add(orig);
-            closedSet.Add(dest);
-
             if (!origNearList.Contains(dest))
             {
                 List<NodeTransport> candidateNodes = new List<NodeTransport>();
@@ -78,16 +72,58 @@ namespace TFG.Controllers
                         candidateNodes.Add(origNode);
                     }
                 }
+
                 if (candidateNodes.Count > 0) //Nodos que tienen línea directa
                 {
                     closedSet = BTDirectLines(candidateNodes, destNearList, closedSet, 0);
+                    closedSet.Insert(0, orig);
+                    closedSet.Add(dest);
+                    Session["Path"] = closedSet;
                 }
-                else
+                else //nodos q no tienen línea directa
                 {
-
+                    //montar A*? o qué
+                    destNearList = GetNearestMetroStations(dest);
+                    Astar(orig, dest, destNearList);
                 }
             }
-            Session["Path"] = closedSet;
+            //Session["Path"] = closedSet;
+        }
+
+        List<string> GetMetroLines(NodeTransport node)
+        {
+            using (var db = new TransportePublicoEntities())
+            {
+
+                return (from me in db.metro_estacion
+                        join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                        where me.CODIGOCTMESTACIONREDMETRO == node.codigoCTM && node.linea != mol.NUMEROLINEAUSUARIO
+                        select mol.NUMEROLINEAUSUARIO
+                        ).ToList();
+            }
+        }
+
+
+        List<NodeTransport> GetTransferStations(string metroLine) //estaciones de una línea con transbordos
+        {
+            var nodeTransportStations = new List<NodeTransport>();
+            using (var db = new TransportePublicoEntities())
+            {
+                var transferStations = db.sp_get_transfers_from_line(metroLine);
+                foreach (var station in transferStations)
+                {
+                    nodeTransportStations.Add(new NodeTransport
+                    {
+                        id = station.CODIGOESTACION,
+                        denominacion = station.DENOMINACION,
+                        ordenLinea = station.NUMEROORDEN,
+                        linea = station.NUMEROLINEAUSUARIO,
+                        lat = station.lat,
+                        lon = station.lon,
+                    });
+                }
+            }
+            return nodeTransportStations;
         }
 
         List<NodeTransport> BTDirectLines(List<NodeTransport> origNodeList, List<NodeTransport> destNodeList, List<NodeTransport> sol, int step)
@@ -101,7 +137,7 @@ namespace TFG.Controllers
                         var candidates = new List<NodeTransport>();
                         using (var db = new TransportePublicoEntities()) //recogemos datos
                         {
-                            candidates = GetBTCandidatesList(origNodeList[i], destNodeList[step]);
+                            candidates = GetBTCandidatesList(origNodeList[step], destNodeList[i]);
                             if (sol.Count <= 0)
                             {
                                 sol = candidates;
@@ -189,12 +225,39 @@ namespace TFG.Controllers
         }
 
 
+        List<NodeTransport> GetNearestMetroStations(NodeTransport node)
+        {
+            List<NodeTransport> nodesList = new List<NodeTransport>();
+            double radiusDistance = 0.0005;
+            while (nodesList.Count <= 0 && radiusDistance < 0.05) //Mientras no tengas nodos o el radio sea enorme
+            {
+
+                using (var db = new TransportePublicoEntities())
+                {
+                    var nearestNodeList = (from me in db.metro_estacion
+                                           join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                                           where me.lat + radiusDistance > node.lat && me.lat - radiusDistance < node.lat &&
+                                               me.lon + radiusDistance > node.lon && me.lon - radiusDistance < node.lon
+                                           select new NodeTransport
+                                           {
+                                               id = me.CODIGOESTACION,
+                                               linea = mol.NUMEROLINEAUSUARIO,
+                                               ordenLinea = mol.NUMEROORDEN,
+                                               denominacion = me.DENOMINACION,
+                                               lat = me.lat,
+                                               lon = me.lon,
+                                               //parent = orig //necesario?
+                                           }).ToList();
+                    nodesList = nearestNodeList;
+                }
+                radiusDistance += 0.0005;
+            }
+            return nodesList;
+        }
 
 
 
-
-
-        private void Astar(NodeTransport orig, NodeTransport dest) //https://www.youtube.com/watch?v=mZfyt03LDH4&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW&index=3&ab_channel=SebastianLague
+        private void Astar(NodeTransport orig, NodeTransport dest, List<NodeTransport> destList) //https://www.youtube.com/watch?v=mZfyt03LDH4&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW&index=3&ab_channel=SebastianLague
         {
             List<NodeTransport> openSet = new List<NodeTransport>();
             HashSet<NodeTransport> closedSet = new HashSet<NodeTransport>();
@@ -214,28 +277,30 @@ namespace TFG.Controllers
                 openSet.Remove(currentNode);
                 closedSet.Add(currentNode); //Lo metemos en la lista cerrada
 
-                if (currentNode == dest)
+                if (destList.Contains(currentNode))
                 {
-                    RetracePath(orig, dest); //Hay q hacer traceback y recoger el path, ya q hay nodos q no necesitamos
+                    RetracePath(orig, currentNode); //Hay q hacer traceback y recoger el path, ya q hay nodos q no necesitamos
+                    return;
                 }
-
-                foreach (NodeTransport neighbour in GetNeighbours(currentNode, dest))
+                var neighbours = GetNeighbours(currentNode);
+                foreach (NodeTransport neighbour in neighbours)
                 {
                     //metemos los nodos en la lista abierta que no estén en la lista cerrada
-                    if (closedSet.Any(node => node.denominacion == neighbour.denominacion && node.linea == neighbour.linea)) //No sé si va a funcionar
+                    if (closedSet.Contains(neighbour)) //No sé si va a funcionar
                     {
                         continue;
                     }
-                    //Recoger ladistancia (probablemente lo haga con itinero para el primer nodo, que será al q tenga que ir andando. Para el resto, mediante distancia euclídea)
 
-                    double newMovementCostToNeighbour = currentNode.gCost + GetEuclideanDistance(currentNode, neighbour);
-                    if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Any(node => node.denominacion == neighbour.denominacion && node.linea == neighbour.linea))
+                    double newMovementCostToNeighbour = currentNode.gCost + 1/*GetEuclideanDistance(currentNode, neighbour)*/;
+                    if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                     {
                         neighbour.gCost = newMovementCostToNeighbour;
-                        neighbour.hCost = GetEuclideanDistance(neighbour, dest);
+                        if (currentNode.linea != neighbour.linea)
+                            neighbour.hCost += 5;
+                        //neighbour.hCost = GetEuclideanDistance(neighbour, dest) / 100;
                         neighbour.parent = currentNode;
 
-                        if (!openSet.Any(node => node.denominacion == neighbour.denominacion && node.linea == neighbour.linea))
+                        if (!openSet.Contains(neighbour))
                         {
                             openSet.Add(neighbour);
                         }
@@ -259,24 +324,47 @@ namespace TFG.Controllers
         }
 
 
-        private List<NodeTransport> GetNeighbours(NodeTransport node, NodeTransport dest)
+        private List<NodeTransport> GetNeighbours(NodeTransport node)
         {
+            List<NodeTransport> nodelist = new List<NodeTransport>();
             using (var db = new TransportePublicoEntities())
             {
-                var nodelist = (from me in db.metro_estacion //Únicamente metro
-                                join mt in db.metro_orden_linea on me.CODIGOESTACION equals mt.CODIGOESTACION
-                                where (node.lat > me.lat - 0.01 && node.lat < me.lat + 0.01) && (node.lon > me.lon - 0.01 && node.lon < me.lon + 0.01)
-                                select new NodeTransport
-                                {
-                                    id = mt.CODIGOESTACION,
-                                    linea = mt.NUMEROLINEAUSUARIO,
-                                    denominacion = me.DENOMINACION,
-                                    lat = me.lat,
-                                    lon = me.lon
-                                }).ToList();
-                if (node.lat - 0.01 < dest.lat && node.lat + 0.01 > dest.lat && node.lon - 0.01 < dest.lon && node.lon + 0.01 > dest.lon)
+                if (node.denominacion == "ORIGEN")
                 {
-                    nodelist.Add(dest);
+                    nodelist = GetNearestMetroStations(node);
+                }
+                else
+                {
+                    //recogemos los transbordos
+                    var transferNodes = (from me in db.metro_estacion
+                                         join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                                         where node.codigoCTM == me.CODIGOCTMESTACIONREDMETRO && node.id != me.CODIGOESTACION
+                                         select new NodeTransport
+                                         {
+                                             id = me.CODIGOESTACION,
+                                             codigoCTM = me.CODIGOCTMESTACIONREDMETRO,
+                                             denominacion = me.DENOMINACION,
+                                             linea = mol.NUMEROLINEAUSUARIO,
+                                             ordenLinea = mol.NUMEROORDEN,
+                                             lat = me.lat,
+                                             lon = me.lon
+                                         }).ToList();
+                    nodelist.AddRange(transferNodes);
+                    //recogemos línea previa o siguiente
+                    var prevAndNextStations = (from me in db.metro_estacion
+                                               join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                                               where node.linea == mol.NUMEROLINEAUSUARIO && (mol.NUMEROORDEN - 1 == node.ordenLinea || mol.NUMEROORDEN + 1 == node.ordenLinea)
+                                               select new NodeTransport
+                                               {
+                                                   id = me.CODIGOESTACION,
+                                                   codigoCTM = me.CODIGOCTMESTACIONREDMETRO,
+                                                   denominacion = me.DENOMINACION,
+                                                   linea = mol.NUMEROLINEAUSUARIO,
+                                                   ordenLinea = mol.NUMEROORDEN,
+                                                   lat = me.lat,
+                                                   lon = me.lon
+                                               }).ToList();
+                    nodelist.AddRange(prevAndNextStations);
                 }
                 return nodelist;
             }
