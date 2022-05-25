@@ -32,61 +32,98 @@ namespace TFG.Controllers
             return View();
         }
 
+
         public ActionResult FindPath(FormCollection form)
         {
-            double latOrig = double.Parse(form["latOrig"], CultureInfo.InvariantCulture);
-            double lonOrig = double.Parse(form["lonOrig"], CultureInfo.InvariantCulture);
-            double latDest = double.Parse(form["latDest"], CultureInfo.InvariantCulture);
-            double lonDest = double.Parse(form["lonDest"], CultureInfo.InvariantCulture);
-
-            NodeTransport orig = new NodeTransport { lat = latOrig, lon = lonOrig, denominacion = "ORIGEN" };
-            NodeTransport dest = new NodeTransport { lat = latDest, lon = lonDest, denominacion = "DESTINO" };
-
-            MetroPath(orig, dest);
-
-
-
-            return Json(new
+            using (var db = new TransportePublicoEntities())
             {
-                Path = Session["Path"] as List<NodeTransport>
-            });
+                var start = form["Start"].ToString();
+                var end = form["End"].ToString();
+
+                List<NodeTransport> startNodes = new List<NodeTransport>();
+                List<NodeTransport> endNodes = new List<NodeTransport>();
+                startNodes = (from me in db.metro_estacion
+                              join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                              where me.DENOMINACION == start.ToUpper()
+                              select new NodeTransport
+                              {
+                                  id = me.CODIGOESTACION,
+                                  codigoCTM = me.CODIGOCTMESTACIONREDMETRO,
+                                  linea = mol.NUMEROLINEAUSUARIO,
+                                  ordenLinea = mol.NUMEROORDEN,
+                                  denominacion = me.DENOMINACION,
+                                  lat = me.lat,
+                                  lon = me.lon,
+                              }).ToList();
+                endNodes = (from me in db.metro_estacion
+                              join mol in db.metro_orden_linea on me.CODIGOESTACION equals mol.CODIGOESTACION
+                              where me.DENOMINACION == end.ToUpper()
+                              select new NodeTransport
+                              {
+                                  id = me.CODIGOESTACION,
+                                  codigoCTM = me.CODIGOCTMESTACIONREDMETRO,
+                                  linea = mol.NUMEROLINEAUSUARIO,
+                                  ordenLinea = mol.NUMEROORDEN,
+                                  denominacion = me.DENOMINACION,
+                                  lat = me.lat,
+                                  lon = me.lon,
+                              }).ToList();
+                MetroPath(startNodes, endNodes);
+
+                GetItinero(startNodes[0], endNodes[0], Vehicle.Car);
+                return Json(new
+                {
+                    Path = Session["Path"] as List<NodeTransport>,
+                    CarShape = Session["CarShape"] 
+                });
+            }
         }
 
+        //public ActionResult FindPath(FormCollection form)
+        //{
+        //    double latOrig = double.Parse(form["latOrig"], CultureInfo.InvariantCulture);
+        //    double lonOrig = double.Parse(form["lonOrig"], CultureInfo.InvariantCulture);
+        //    double latDest = double.Parse(form["latDest"], CultureInfo.InvariantCulture);
+        //    double lonDest = double.Parse(form["lonDest"], CultureInfo.InvariantCulture);
 
-        void MetroPath(NodeTransport orig, NodeTransport dest)
+        //    NodeTransport orig = new NodeTransport { lat = latOrig, lon = lonOrig, denominacion = "ORIGEN" };
+        //    NodeTransport dest = new NodeTransport { lat = latDest, lon = lonDest, denominacion = "DESTINO" };
+
+        //    MetroPath(orig, dest);
+
+
+
+        //    return Json(new
+        //    {
+        //        Path = Session["Path"] as List<NodeTransport>
+        //    });
+        //}
+
+
+        void MetroPath(List<NodeTransport> origNearList, List<NodeTransport> destNearList)
         {
             List<NodeTransport> closedSet = new List<NodeTransport>();
-            //origen
-            var origNearList = GetNearestMetroStations(orig, dest);
 
-            //destino
-            var destNearList = GetNearestMetroStations(dest, orig);
-
-            if (!origNearList.Contains(dest))
+            List<NodeTransport> candidateNodes = new List<NodeTransport>();
+            foreach (var origNode in origNearList) //BT?
             {
-                List<NodeTransport> candidateNodes = new List<NodeTransport>();
-                foreach (var origNode in origNearList) //BT?
+                if (destNearList.Any(destNode => origNode.linea == destNode.linea))
                 {
-                    if (destNearList.Any(destNode => origNode.linea == destNode.linea))
-                    {
-                        candidateNodes.Add(origNode);
-                    }
-                }
-
-                if (candidateNodes.Count > 0) //Nodos que tienen línea directa
-                {
-                    closedSet = BTDirectLines(candidateNodes, destNearList, closedSet, 0);
-                    closedSet.Insert(0, orig);
-                    closedSet.Add(dest);
-                    Session["Path"] = closedSet;
-                }
-                else //nodos q no tienen línea directa
-                {
-                    //montar A*? o qué
-                    destNearList = GetNearestMetroStations(dest);
-                    Astar(orig, dest, destNearList);
+                    candidateNodes.Add(origNode);
                 }
             }
+
+            if (candidateNodes.Count > 0) //Nodos que tienen línea directa
+            {
+                closedSet = BTDirectLines(candidateNodes, destNearList, closedSet, 0);
+                Session["Path"] = closedSet;
+            }
+            else //nodos q no tienen línea directa
+            {
+                //montar A*? o qué
+                Astar(origNearList[0], destNearList);
+            }
+
             //Session["Path"] = closedSet;
         }
 
@@ -257,7 +294,7 @@ namespace TFG.Controllers
 
 
 
-        private void Astar(NodeTransport orig, NodeTransport dest, List<NodeTransport> destList) //https://www.youtube.com/watch?v=mZfyt03LDH4&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW&index=3&ab_channel=SebastianLague
+        private void Astar(NodeTransport orig, List<NodeTransport> destList) //https://www.youtube.com/watch?v=mZfyt03LDH4&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW&index=3&ab_channel=SebastianLague
         {
             List<NodeTransport> openSet = new List<NodeTransport>();
             HashSet<NodeTransport> closedSet = new HashSet<NodeTransport>();
@@ -318,7 +355,7 @@ namespace TFG.Controllers
                 path.Add(currentNode);
                 currentNode = currentNode.parent;
             }
-
+            path.Add(currentNode);
             path.Reverse();
             Session["Path"] = path;
         }
@@ -376,10 +413,12 @@ namespace TFG.Controllers
             double lons = Math.Pow((double)orig.lon + (double)dest.lon, 2);
             return Math.Sqrt(lats + lons);
         }
-        private float GetDistanceItinero(NodeTransport orig, NodeTransport dest, Itinero.Profiles.Vehicle vehicle) //https://blog.vincentcos.tel/itinero/
+        public void GetItinero(NodeTransport orig, NodeTransport dest, Itinero.Profiles.Vehicle vehicle) //https://blog.vincentcos.tel/itinero/
         {
             RouterDb routerDb = null;
             string path = null;
+
+
             if (vehicle.Equals(Vehicle.Car))
             {
                 path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-car.routerdb");
@@ -387,8 +426,11 @@ namespace TFG.Controllers
             else if (vehicle.Equals(Vehicle.Pedestrian))
             {
                 path = ControllerContext.HttpContext.Server.MapPath(@"~/Content/Maps/serialized-madrid-pedestrian.routerdb");
+            } else if (vehicle.Equals(Vehicle.Bus))
+            {
 
             }
+
             using (var stream = new FileInfo(path).OpenRead())
             {
                 routerDb = RouterDb.Deserialize(stream, RouterDbProfile.NoCache);
@@ -405,7 +447,17 @@ namespace TFG.Controllers
 
                 var route = router.Calculate(profile, start, end);
 
-                return route.TotalDistance;
+                if (vehicle.Equals(Vehicle.Pedestrian))
+                {
+                    Session["PedestrianShape"] = route.Shape;
+                    Session["PedestrianDistance"] = route.TotalDistance;
+                    Session["PedestrianTime"] = route.TotalTime;
+                } else if (vehicle.Equals(Vehicle.Car))
+                {
+                    Session["CarShape"] = route.Shape;
+                    Session["CarTime"] = route.TotalTime;
+                }
+
             }
         }
 
@@ -435,5 +487,23 @@ namespace TFG.Controllers
             }
         }
 
+
+
+        public ActionResult GetAllNameStations()
+        {
+            //TODO: falta por añadir más estaciones
+            using (var db = new TransportePublicoEntities())
+            {
+                var stations = (from m in db.metro_estacion
+
+                                select m.DENOMINACION.Substring(0, 1) + m.DENOMINACION.Substring(1).ToLower()
+                                ).Distinct().ToList();
+
+                return Json(new
+                {
+                    Stations = stations
+                }, JsonRequestBehavior.AllowGet); ;
+            }
+        }
     }
 }
