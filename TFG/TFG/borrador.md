@@ -14,7 +14,12 @@
 - Importar CSV desde página Datos Abiertos
 - Añadir PKs y FK para relacionarla con metro_estacion
 - Borrar columnas innecesarias
+- comprobar que las líneas están ordenadas con la columna numeroordenlinea
+- corregir los fallos de ordenación
 - Borrar rows duplicadas (tienen sentido 1 y 2)
+- hay algunas líneas con zonas de tarifa distinas (cambio de trenes). Reordenar de nuevo las líneas
+- ídem para cercanías y metro lgiero pero quitando las zonas de tarifas
+- caso especial con líneas circulares
 
 ## Línea 10
 - Tiene tarifas A y B. El órden va de 1 a N en ambas tarifas
@@ -26,3 +31,56 @@
 - Ídem con 10 y 7
 ## Líneas 6 y 12
 - Recoger línea que va de un sentido a otro ya q es circular
+
+
+
+
+# CERCANÍAS
+## C1
+Príncipe Pío
+Pirámides
+Delicias
+Méndez Álvaro
+Atocha
+Nuevos
+Chamartín
+Fuente la mora (Ligero)
+T4
+
+## C2
+Coslada
+Vicálvaro
+Vallecas
+
+## C3
+El casar
+Sol
+Mirasierra-Paco de Lucía
+Pitis
+
+## C4
+Getafe Central
+
+## C5
+Móstoles Central
+Alcorcón Central
+Cuatro vientos
+Aluche
+Laguna
+Embajadores
+Villaverde Alto
+Fuenlabrada Central
+
+## C7
+Coslada
+Vicálvaro
+Vallecas
+Pozuelo (ligero)
+Aravaca (ligero)
+
+## C8
+Recoletos
+
+## C9
+Pirámides
+Delicias

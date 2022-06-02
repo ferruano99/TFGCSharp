@@ -21,8 +21,9 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .fa-circle-notch {
-    color:black;
+    color: black;
 }
 
 .hide {
@@ -42,7 +43,6 @@ input[type="text"] {
     height: 2rem;
     width: 100%;
 }
-
 /*input[type="image"] {
     height: 2rem;
     width: 2rem;
@@ -65,7 +65,7 @@ input[type="text"] {
     position: absolute;
     cursor: default;
     z-index: 1000 !important;
-    text-align:left;
+    text-align: left;
 }
 
 .sidebar {
@@ -84,7 +84,6 @@ input[type="text"] {
 .inputs {
     padding: 30px 30px 0 30px;
     font-size: 15px;
-
 }
 
 @media screen and (max-width: 700px) {
@@ -114,7 +113,7 @@ input[type="text"] {
     cursor: pointer;
     padding: 18px 18px 18px 25px;
     width: 100%;
-    text-align:center;
+    text-align: center;
     border: none;
     outline: none;
     transition: 0.4s;
@@ -144,4 +143,22 @@ button:focus {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+    text-align: left;
 }
+
+    .panel p {
+        margin-top: 10px;
+    }
+
+.btn-route {
+    border: 1px solid #a4a4a4;
+    background-color: #f8f9fa;
+}
+    .btn-route:hover {
+        border: 1px solid #a4a4a4 !important;
+    }
+
+    .btn-route:active {
+        box-shadow: inset 0 0 10px;
+        border: 1px solid #a4a4a4 !important;
+    }

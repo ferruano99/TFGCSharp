@@ -1,5 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cercanias_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="lon" Type="float" />
+    <Property Name="lat" Type="float" />
+  </EntityType>
+  <EntityType Name="cercanias_orden_linea">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="int" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SENTIDO" Type="tinyint" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="int" Nullable="false" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CODIGOMUNICIPIO" Type="smallint" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="float" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ligero_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="CODIGOCTMESTACIONREDMETRO" Type="int" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" />
+    <Property Name="lon" Type="float" />
+    <Property Name="lat" Type="float" />
+  </EntityType>
+  <EntityType Name="ligero_orden_linea">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="int" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SENTIDO" Type="int" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="int" Nullable="false" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="CODIGOPROVINCIA" Type="tinyint" Nullable="false" />
+    <Property Name="CODIGOMUNICIPIO" Type="tinyint" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="float" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="tinyint" Nullable="false" />
+  </EntityType>
   <EntityType Name="metro_estacion">
     <Key>
       <PropertyRef Name="CODIGOESTACION" />
@@ -12,19 +61,53 @@
   </EntityType>
   <EntityType Name="metro_orden_linea">
     <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="int" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" />
+    <Property Name="SENTIDO" Type="int" />
+    <Property Name="CODIGOESTACION" Type="int" />
+    <Property Name="NUMEROORDEN" Type="int" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="506" />
+    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="float" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="float" />
+  </EntityType>
+  <EntityType Name="transbordos_ferroviarios">
+    <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SENTIDO" Type="tinyint" Nullable="false" />
-    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
-    <Property Name="NUMEROORDEN" Type="tinyint" Nullable="false" />
-    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DIRECCION" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CEMetro" Type="int" />
+    <Property Name="CECercanias" Type="int" />
+    <Property Name="CELigero" Type="int" />
   </EntityType>
+  <Association Name="FK_cercanias_orden_linea_cercanias_estacion">
+    <End Role="cercanias_estacion" Type="Self.cercanias_estacion" Multiplicity="1" />
+    <End Role="cercanias_orden_linea" Type="Self.cercanias_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cercanias_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="cercanias_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ligero_orden_linea_ligero_estacion">
+    <End Role="ligero_estacion" Type="Self.ligero_estacion" Multiplicity="1" />
+    <End Role="ligero_orden_linea" Type="Self.ligero_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ligero_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="ligero_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_metro_orden_linea_metro_estacion">
-    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="1" />
+    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
     <End Role="metro_orden_linea" Type="Self.metro_orden_linea" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="metro_estacion">
@@ -35,15 +118,76 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_transbordos_ferroviarios_cercanias_estacion">
+    <End Role="cercanias_estacion" Type="Self.cercanias_estacion" Multiplicity="0..1" />
+    <End Role="transbordos_ferroviarios" Type="Self.transbordos_ferroviarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cercanias_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CECercanias" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_transbordos_ferroviarios_ligero_estacion">
+    <End Role="ligero_estacion" Type="Self.ligero_estacion" Multiplicity="0..1" />
+    <End Role="transbordos_ferroviarios" Type="Self.transbordos_ferroviarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ligero_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CELigero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_transbordos_ferroviarios_metro_estacion">
+    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
+    <End Role="transbordos_ferroviarios" Type="Self.transbordos_ferroviarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metro_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CEMetro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="sp_get_transfers_from_line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="line" Type="nvarchar" Mode="In" />
   </Function>
   <EntityContainer Name="TransportePublicoModelStoreContainer">
+    <EntitySet Name="cercanias_estacion" EntityType="Self.cercanias_estacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cercanias_orden_linea" EntityType="Self.cercanias_orden_linea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ligero_estacion" EntityType="Self.ligero_estacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ligero_orden_linea" EntityType="Self.ligero_orden_linea" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transbordos_ferroviarios" EntityType="Self.transbordos_ferroviarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_cercanias_orden_linea_cercanias_estacion" Association="Self.FK_cercanias_orden_linea_cercanias_estacion">
+      <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
+      <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ligero_orden_linea_ligero_estacion" Association="Self.FK_ligero_orden_linea_ligero_estacion">
+      <End Role="ligero_estacion" EntitySet="ligero_estacion" />
+      <End Role="ligero_orden_linea" EntitySet="ligero_orden_linea" />
+    </AssociationSet>
     <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="Self.FK_metro_orden_linea_metro_estacion">
       <End Role="metro_estacion" EntitySet="metro_estacion" />
       <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transbordos_ferroviarios_cercanias_estacion" Association="Self.FK_transbordos_ferroviarios_cercanias_estacion">
+      <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transbordos_ferroviarios_ligero_estacion" Association="Self.FK_transbordos_ferroviarios_ligero_estacion">
+      <End Role="ligero_estacion" EntitySet="ligero_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transbordos_ferroviarios_metro_estacion" Association="Self.FK_transbordos_ferroviarios_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

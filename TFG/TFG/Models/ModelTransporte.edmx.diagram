@@ -5,9 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e81577c29d5642609009e39c1a7993d7" Name="Diagram1">
-        <EntityTypeShape EntityType="TransportePublicoModel.metro_estacion" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportePublicoModel.metro_orden_linea" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="TransportePublicoModel.cercanias_estacion" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TransportePublicoModel.ligero_estacion" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="TransportePublicoModel.ligero_orden_linea" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="TransportePublicoModel.metro_estacion" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="TransportePublicoModel.metro_orden_linea" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="TransportePublicoModel.transbordos_ferroviarios" Width="1.5" PointX="3" PointY="3.125" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_cercanias_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_ligero_orden_linea_ligero_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_ligero_estacion" />
         <AssociationConnector Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion" />
+        <EntityTypeShape EntityType="TransportePublicoModel.cercanias_orden_linea" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

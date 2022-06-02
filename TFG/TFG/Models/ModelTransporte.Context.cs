@@ -27,8 +27,13 @@ namespace TFG.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<cercanias_estacion> cercanias_estacion { get; set; }
+        public virtual DbSet<ligero_estacion> ligero_estacion { get; set; }
+        public virtual DbSet<ligero_orden_linea> ligero_orden_linea { get; set; }
         public virtual DbSet<metro_estacion> metro_estacion { get; set; }
         public virtual DbSet<metro_orden_linea> metro_orden_linea { get; set; }
+        public virtual DbSet<transbordos_ferroviarios> transbordos_ferroviarios { get; set; }
+        public virtual DbSet<cercanias_orden_linea> cercanias_orden_linea { get; set; }
     
         public virtual ObjectResult<sp_get_transfers_from_line_Result> sp_get_transfers_from_line(string line)
         {

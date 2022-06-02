@@ -18,6 +18,7 @@ namespace TFG.Models
         public metro_estacion()
         {
             this.metro_orden_linea = new HashSet<metro_orden_linea>();
+            this.transbordos_ferroviarios = new HashSet<transbordos_ferroviarios>();
         }
     
         public int CODIGOESTACION { get; set; }
@@ -28,5 +29,7 @@ namespace TFG.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<metro_orden_linea> metro_orden_linea { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<transbordos_ferroviarios> transbordos_ferroviarios { get; set; }
     }
 }

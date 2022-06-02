@@ -195,6 +195,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\cercanias_estacion.cs">
+      <DependentUpon>ModelTransporte.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cercanias_orden_linea.cs">
+      <DependentUpon>ModelTransporte.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ligero_estacion.cs">
+      <DependentUpon>ModelTransporte.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ligero_orden_linea.cs">
+      <DependentUpon>ModelTransporte.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\metro_estacion.cs">
       <DependentUpon>ModelTransporte.tt</DependentUpon>
     </Compile>
@@ -220,6 +232,10 @@
     <Compile Include="Models\sp_get_transfers_from_line_Result.cs">
       <DependentUpon>ModelTransporte.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\transbordos_ferroviarios.cs">
+      <DependentUpon>ModelTransporte.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransferCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +253,7 @@
     <Content Include="Content\Images\circle.png" />
     <Content Include="Content\Images\icons8-flecha-ampliar-24.png" />
     <Content Include="Content\Images\icons8-flecha-contraer-24.png" />
+    <Content Include="Content\Images\emt.png" />
     <Content Include="Content\Images\marker.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -286,6 +303,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Content\Maps\serialized-madrid-bicycle.routerdb" />
+    <Content Include="Content\Maps\serialized-madrid-bus.routerdb" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\external\jquery\jquery.js" />
     <Content Include="Scripts\Home\main.js" />

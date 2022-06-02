@@ -10,6 +10,7 @@ L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token
     attribution: 'Datos de los mapas: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
+var waypoints = [] //origen y destino
 
 //Variables colores metro https://colorswall.com/palette/106461
 const metroColors = [
@@ -87,7 +88,8 @@ $('#start').autocomplete({
             dataType: "json",
             method: "GET",
             success: function (data) {
-                response($.ui.autocomplete.filter(data.Stations, request.term))
+                var results = $.ui.autocomplete.filter(data.Stations, request.term)
+                response(results.slice(0,15))
             },
             error: function (requestObject, error, errorThrown) {
                 console.log(requestObject.responseText)
@@ -99,17 +101,20 @@ $('#start').autocomplete({
             this.value = "";
         }
     },
-    minLength: 1
+    minLength: 2
 });
 
 $('#end').autocomplete({
     source: function (request, response) {
+        
+
         $.ajax({
             url: url + "Home/GetAllNameStations",
             dataType: "json",
             method: "GET",
             success: function (data) {
-                response($.ui.autocomplete.filter(data.Stations, request.term))
+                var results = $.ui.autocomplete.filter(data.Stations, request.term)
+                response(results.slice(0, 15))
             },
             error: function (requestObject, error, errorThrown) {
                 console.log(requestObject.responseText)
@@ -127,8 +132,13 @@ $('#end').autocomplete({
 
 $("#submit").on('click', function () {
     var formData = new FormData();
-    formData.append("Start", $("#start").val())
-    formData.append("End", $("#end").val())
+    //split para recoger por una parte el tipo de transporte y por otra el nombre de la estacion
+    var start = $("#start").val().split(" - ")
+    var end = $("#end").val().split(" - ")
+
+
+    formData.append("Start", start)
+    formData.append("End", end)
 
     $.ajax({
         url: url + "Home/FindPath",
@@ -143,7 +153,8 @@ $("#submit").on('click', function () {
 
         },
         success: function (data) {
-            
+            waypoints = data.Waypoints
+
 
             var path = data.Path
             console.log(data.Car)
@@ -155,12 +166,14 @@ $("#submit").on('click', function () {
             for (let i = 0; i < path.length; i++) {
                 var latlng = L.latLng(path[i].lat, path[i].lon)
                 coords.push(latlng)
-                L.marker(latlng,
+                var marker = L.marker(latlng,
                     {
                         icon: markerIcon
                     }).addTo(map)
             }
-            L.polyline(coords, {color: "red"}).addTo(map)
+            var line = L.polyline(coords, { color: "red" }).addTo(map)
+            map.addLayer(marker)
+            map.addLayer(line)
             console.log(data)
         },
         complete: function () {
@@ -172,7 +185,27 @@ $("#submit").on('click', function () {
     });
 });
 
+$("#car").on('click', function () {
+    console.log(waypoints)
+})
 
 
-//acordeones
-var allAccordions = $('.custom-accordion');
+
+
+
+//Acordeones
+var acc = document.getElementsByClassName("custom-accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+}
+
