@@ -229,6 +229,7 @@
       <DependentUpon>ModelTransporte.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NodeTransport.cs" />
+    <Compile Include="Models\RouteInfo.cs" />
     <Compile Include="Models\sp_get_transfers_from_line_Result.cs">
       <DependentUpon>ModelTransporte.tt</DependentUpon>
     </Compile>
@@ -254,7 +255,7 @@
     <Content Include="Content\Images\icons8-flecha-ampliar-24.png" />
     <Content Include="Content\Images\icons8-flecha-contraer-24.png" />
     <Content Include="Content\Images\emt.png" />
-    <Content Include="Content\Images\marker.png" />
+    <Content Include="Content\Images\icons8-marcador-32.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
