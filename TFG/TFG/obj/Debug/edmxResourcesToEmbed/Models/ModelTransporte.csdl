@@ -1,5 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TransportePublicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_get_transfers_from_line" ReturnType="Collection(TransportePublicoModel.sp_get_transfers_from_line_Result)">
+      <Parameter Name="line" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="cercanias_estacion" EntityType="TransportePublicoModel.cercanias_estacion" />
+    <EntitySet Name="ligero_estacion" EntityType="TransportePublicoModel.ligero_estacion" />
+    <EntitySet Name="ligero_orden_linea" EntityType="TransportePublicoModel.ligero_orden_linea" />
+    <EntitySet Name="metro_estacion" EntityType="TransportePublicoModel.metro_estacion" />
+    <EntitySet Name="metro_orden_linea" EntityType="TransportePublicoModel.metro_orden_linea" />
+    <EntitySet Name="transbordos_ferroviarios" EntityType="TransportePublicoModel.transbordos_ferroviarios" />
+    <AssociationSet Name="FK_transbordos_ferroviarios_cercanias_estacion" Association="TransportePublicoModel.FK_transbordos_ferroviarios_cercanias_estacion">
+      <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ligero_orden_linea_ligero_estacion" Association="TransportePublicoModel.FK_ligero_orden_linea_ligero_estacion">
+      <End Role="ligero_estacion" EntitySet="ligero_estacion" />
+      <End Role="ligero_orden_linea" EntitySet="ligero_orden_linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transbordos_ferroviarios_ligero_estacion" Association="TransportePublicoModel.FK_transbordos_ferroviarios_ligero_estacion">
+      <End Role="ligero_estacion" EntitySet="ligero_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_metro_orden_linea_metro_estacion" Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="metro_orden_linea" EntitySet="metro_orden_linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transbordos_ferroviarios_metro_estacion" Association="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion">
+      <End Role="metro_estacion" EntitySet="metro_estacion" />
+      <End Role="transbordos_ferroviarios" EntitySet="transbordos_ferroviarios" />
+    </AssociationSet>
+    <EntitySet Name="cercanias_orden_linea" EntityType="TransportePublicoModel.cercanias_orden_linea" />
+    <AssociationSet Name="FK_cercanias_orden_linea_cercanias_estacion" Association="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion">
+      <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
+      <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />
+    </AssociationSet>
+    <EntitySet Name="bus_estacion" EntityType="TransportePublicoModel.bus_estacion" />
+    <EntitySet Name="bus_orden_linea" EntityType="TransportePublicoModel.bus_orden_linea" />
+    <AssociationSet Name="FK_bus_orden_linea_bus_estacion" Association="TransportePublicoModel.FK_bus_orden_linea_bus_estacion">
+      <End Role="bus_estacion" EntitySet="bus_estacion" />
+      <End Role="bus_orden_linea" EntitySet="bus_orden_linea" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_get_transfers_from_line_Result">
+    <Property Type="Int32" Name="CODIGOESTACION" Nullable="false" />
+    <Property Type="String" Name="DENOMINACION" Nullable="true" MaxLength="100" />
+    <Property Type="Byte" Name="NUMEROORDEN" Nullable="false" />
+    <Property Type="String" Name="NUMEROLINEAUSUARIO" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="lat" Nullable="true" />
+    <Property Type="Double" Name="lon" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="cercanias_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lat" Type="Double" />
+    <NavigationProperty Name="transbordos_ferroviarios" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_cercanias_estacion" FromRole="cercanias_estacion" ToRole="transbordos_ferroviarios" />
+    <NavigationProperty Name="cercanias_orden_linea" Relationship="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion" FromRole="cercanias_estacion" ToRole="cercanias_orden_linea" />
+  </EntityType>
+  <EntityType Name="ligero_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOCTMESTACIONREDMETRO" Type="Int32" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lat" Type="Double" />
+    <NavigationProperty Name="ligero_orden_linea" Relationship="TransportePublicoModel.FK_ligero_orden_linea_ligero_estacion" FromRole="ligero_estacion" ToRole="ligero_orden_linea" />
+    <NavigationProperty Name="transbordos_ferroviarios" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_ligero_estacion" FromRole="ligero_estacion" ToRole="transbordos_ferroviarios" />
+  </EntityType>
+  <EntityType Name="ligero_orden_linea">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="Int32" Nullable="false" />
+    <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CODIGOPROVINCIA" Type="Byte" Nullable="false" />
+    <Property Name="CODIGOMUNICIPIO" Type="Byte" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="ligero_estacion" Relationship="TransportePublicoModel.FK_ligero_orden_linea_ligero_estacion" FromRole="ligero_orden_linea" ToRole="ligero_estacion" />
+  </EntityType>
   <EntityType Name="metro_estacion">
     <Key>
       <PropertyRef Name="CODIGOESTACION" />
@@ -9,36 +98,160 @@
     <Property Name="DENOMINACION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="lon" Type="Double" />
     <Property Name="lat" Type="Double" />
-    <NavigationProperty Name="metro_tramo" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_estacion" ToRole="metro_tramo" />
+    <NavigationProperty Name="metro_orden_linea" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_estacion" ToRole="metro_orden_linea" />
+    <NavigationProperty Name="transbordos_ferroviarios" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion" FromRole="metro_estacion" ToRole="transbordos_ferroviarios" />
   </EntityType>
-  <EntityType Name="metro_tramo">
+  <EntityType Name="metro_orden_linea">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="OBJECTID" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="CODIGOESTACION" Type="Int32" />
-    <Property Name="NUMEROLINEAUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SENTIDO" Type="Int32" />
-    <NavigationProperty Name="metro_estacion" Relationship="Self.FK_metro_tramo_metro_estacion" FromRole="metro_tramo" ToRole="metro_estacion" />
+    <Property Name="CODIGOESTACION" Type="Int32" />
+    <Property Name="NUMEROORDEN" Type="Int32" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="506" FixedLength="false" Unicode="true" />
+    <Property Name="MUNICIPIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="Double" />
+    <NavigationProperty Name="metro_estacion" Relationship="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" FromRole="metro_orden_linea" ToRole="metro_estacion" />
   </EntityType>
-  <Association Name="FK_metro_tramo_metro_estacion">
-    <End Role="metro_estacion" Type="Self.metro_estacion" Multiplicity="0..1" />
-    <End Role="metro_tramo" Type="Self.metro_tramo" Multiplicity="*" />
+  <EntityType Name="transbordos_ferroviarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CEMetro" Type="Int32" />
+    <Property Name="CECercanias" Type="Int32" />
+    <Property Name="CELigero" Type="Int32" />
+    <NavigationProperty Name="cercanias_estacion" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_cercanias_estacion" FromRole="transbordos_ferroviarios" ToRole="cercanias_estacion" />
+    <NavigationProperty Name="ligero_estacion" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_ligero_estacion" FromRole="transbordos_ferroviarios" ToRole="ligero_estacion" />
+    <NavigationProperty Name="metro_estacion" Relationship="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion" FromRole="transbordos_ferroviarios" ToRole="metro_estacion" />
+  </EntityType>
+  <Association Name="FK_transbordos_ferroviarios_cercanias_estacion">
+    <End Type="TransportePublicoModel.cercanias_estacion" Role="cercanias_estacion" Multiplicity="0..1" />
+    <End Type="TransportePublicoModel.transbordos_ferroviarios" Role="transbordos_ferroviarios" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="metro_estacion">
+      <Principal Role="cercanias_estacion">
         <PropertyRef Name="CODIGOESTACION" />
       </Principal>
-      <Dependent Role="metro_tramo">
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CECercanias" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ligero_orden_linea_ligero_estacion">
+    <End Type="TransportePublicoModel.ligero_estacion" Role="ligero_estacion" Multiplicity="1" />
+    <End Type="TransportePublicoModel.ligero_orden_linea" Role="ligero_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ligero_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="ligero_orden_linea">
         <PropertyRef Name="CODIGOESTACION" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="TransportePublicoEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" />
-    <EntitySet Name="metro_tramo" EntityType="Self.metro_tramo" />
-    <AssociationSet Name="FK_metro_tramo_metro_estacion" Association="Self.FK_metro_tramo_metro_estacion">
-      <End Role="metro_estacion" EntitySet="metro_estacion" />
-      <End Role="metro_tramo" EntitySet="metro_tramo" />
-    </AssociationSet>
-  </EntityContainer>
+  <Association Name="FK_transbordos_ferroviarios_ligero_estacion">
+    <End Type="TransportePublicoModel.ligero_estacion" Role="ligero_estacion" Multiplicity="0..1" />
+    <End Type="TransportePublicoModel.transbordos_ferroviarios" Role="transbordos_ferroviarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ligero_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CELigero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_metro_orden_linea_metro_estacion">
+    <End Type="TransportePublicoModel.metro_estacion" Role="metro_estacion" Multiplicity="0..1" />
+    <End Type="TransportePublicoModel.metro_orden_linea" Role="metro_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metro_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="metro_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_transbordos_ferroviarios_metro_estacion">
+    <End Type="TransportePublicoModel.metro_estacion" Role="metro_estacion" Multiplicity="0..1" />
+    <End Type="TransportePublicoModel.transbordos_ferroviarios" Role="transbordos_ferroviarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="metro_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="transbordos_ferroviarios">
+        <PropertyRef Name="CEMetro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="cercanias_orden_linea">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Byte" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="Int32" Nullable="false" />
+    <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CODIGOMUNICIPIO" Type="Int16" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="cercanias_estacion" Relationship="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion" FromRole="cercanias_orden_linea" ToRole="cercanias_estacion" />
+  </EntityType>
+  <Association Name="FK_cercanias_orden_linea_cercanias_estacion">
+    <End Type="TransportePublicoModel.cercanias_estacion" Role="cercanias_estacion" Multiplicity="1" />
+    <End Type="TransportePublicoModel.cercanias_orden_linea" Role="cercanias_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cercanias_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="cercanias_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="bus_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOPARADA" Type="Int32" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lat" Type="Double" />
+    <NavigationProperty Name="bus_orden_linea" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_estacion" ToRole="bus_orden_linea" />
+  </EntityType>
+  <EntityType Name="bus_orden_linea">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="Int32" Nullable="false" />
+    <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="Double" />
+    <NavigationProperty Name="bus_estacion" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_orden_linea" ToRole="bus_estacion" />
+  </EntityType>
+  <Association Name="FK_bus_orden_linea_bus_estacion">
+    <End Type="TransportePublicoModel.bus_estacion" Role="bus_estacion" Multiplicity="1" />
+    <End Type="TransportePublicoModel.bus_orden_linea" Role="bus_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bus_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="bus_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

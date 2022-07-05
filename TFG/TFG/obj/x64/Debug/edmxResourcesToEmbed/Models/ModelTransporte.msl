@@ -102,5 +102,31 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="bus_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.bus_estacion">
+        <MappingFragment StoreEntitySet="bus_estacion">
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="CODIGOPARADA" ColumnName="CODIGOPARADA" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bus_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.bus_orden_linea">
+        <MappingFragment StoreEntitySet="bus_orden_linea">
+          <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+          <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -1,24 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TransportePublicoModelStoreContainer" CdmEntityContainer="TransportePublicoEntities">
-    <EntitySetMapping Name="metro_estacion">
-      <EntityTypeMapping TypeName="TransportePublicoModel.metro_estacion">
-        <MappingFragment StoreEntitySet="metro_estacion">
+    <FunctionImportMapping FunctionImportName="sp_get_transfers_from_line" FunctionName="TransportePublicoModel.Store.sp_get_transfers_from_line">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportePublicoModel.sp_get_transfers_from_line_Result">
           <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
-          <ScalarProperty Name="CODIGOCTMESTACIONREDMETRO" ColumnName="CODIGOCTMESTACIONREDMETRO" />
           <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
-          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
           <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="cercanias_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.cercanias_estacion">
+        <MappingFragment StoreEntitySet="cercanias_estacion">
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="metro_tramo">
-      <EntityTypeMapping TypeName="TransportePublicoModel.metro_tramo">
-        <MappingFragment StoreEntitySet="metro_tramo">
-          <ScalarProperty Name="id" ColumnName="id" />
+    <EntitySetMapping Name="ligero_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.ligero_estacion">
+        <MappingFragment StoreEntitySet="ligero_estacion">
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="CODIGOCTMESTACIONREDMETRO" ColumnName="CODIGOCTMESTACIONREDMETRO" />
           <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
-          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ligero_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.ligero_orden_linea">
+        <MappingFragment StoreEntitySet="ligero_orden_linea">
+          <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+          <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="CODIGOMUNICIPIO" ColumnName="CODIGOMUNICIPIO" />
+          <ScalarProperty Name="CODIGOPROVINCIA" ColumnName="CODIGOPROVINCIA" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
           <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="FID" ColumnName="FID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="metro_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.metro_estacion">
+        <MappingFragment StoreEntitySet="metro_estacion">
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="CODIGOCTMESTACIONREDMETRO" ColumnName="CODIGOCTMESTACIONREDMETRO" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="metro_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.metro_orden_linea">
+        <MappingFragment StoreEntitySet="metro_orden_linea">
+          <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+          <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transbordos_ferroviarios">
+      <EntityTypeMapping TypeName="TransportePublicoModel.transbordos_ferroviarios">
+        <MappingFragment StoreEntitySet="transbordos_ferroviarios">
+          <ScalarProperty Name="CELigero" ColumnName="CELigero" />
+          <ScalarProperty Name="CECercanias" ColumnName="CECercanias" />
+          <ScalarProperty Name="CEMetro" ColumnName="CEMetro" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cercanias_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.cercanias_orden_linea">
+        <MappingFragment StoreEntitySet="cercanias_orden_linea">
+          <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+          <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="CODIGOMUNICIPIO" ColumnName="CODIGOMUNICIPIO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bus_estacion">
+      <EntityTypeMapping TypeName="TransportePublicoModel.bus_estacion">
+        <MappingFragment StoreEntitySet="bus_estacion">
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="CODIGOPARADA" ColumnName="CODIGOPARADA" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bus_orden_linea">
+      <EntityTypeMapping TypeName="TransportePublicoModel.bus_orden_linea">
+        <MappingFragment StoreEntitySet="bus_orden_linea">
+          <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+          <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+          <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+          <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+          <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+          <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+          <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

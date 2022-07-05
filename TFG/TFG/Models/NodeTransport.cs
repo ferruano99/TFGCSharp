@@ -18,6 +18,10 @@ namespace TFG.Models
     public class NodeTransport
     {
         public int? id { get; set; } //codigoestacion
+
+        public int? codigoparada { get; set; } //para buses
+
+        public int? sentido { get; set; }
         public int? codigoCTM { get; set; }
         public string linea { get; set; }
         public int? ordenLinea { get; set; }
@@ -36,6 +40,11 @@ namespace TFG.Models
             }
         }
 
+        public override int GetHashCode()
+        {
+            return id.GetHashCode() + denominacion.GetHashCode() + linea.GetHashCode() + codigoCTM.GetHashCode() + type.GetHashCode();
+        }
+
         public override bool Equals(Object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -45,8 +54,13 @@ namespace TFG.Models
             else
             {
                 NodeTransport nt = (NodeTransport)obj;
-                return id == nt.id && denominacion == nt.denominacion;
+                return id == nt.id && denominacion == nt.denominacion && linea == nt.linea && codigoCTM == nt.codigoCTM && type == nt.type;
             }
+        }
+
+        public override string ToString()
+        {
+            return "Tipo: " + this.type + " Nombre: " + denominacion + " Línea: " + linea;
         }
     }
 

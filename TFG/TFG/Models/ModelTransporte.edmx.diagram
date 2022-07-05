@@ -18,6 +18,9 @@
         <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion" />
         <EntityTypeShape EntityType="TransportePublicoModel.cercanias_orden_linea" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion" />
+        <EntityTypeShape EntityType="TransportePublicoModel.bus_estacion" Width="1.5" PointX="5.375" PointY="1.375" />
+        <EntityTypeShape EntityType="TransportePublicoModel.bus_orden_linea" Width="1.5" PointX="7.625" PointY="1" />
+        <AssociationConnector Association="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

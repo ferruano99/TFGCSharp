@@ -34,6 +34,8 @@ namespace TFG.Models
         public virtual DbSet<metro_orden_linea> metro_orden_linea { get; set; }
         public virtual DbSet<transbordos_ferroviarios> transbordos_ferroviarios { get; set; }
         public virtual DbSet<cercanias_orden_linea> cercanias_orden_linea { get; set; }
+        public virtual DbSet<bus_estacion> bus_estacion { get; set; }
+        public virtual DbSet<bus_orden_linea> bus_orden_linea { get; set; }
     
         public virtual ObjectResult<sp_get_transfers_from_line_Result> sp_get_transfers_from_line(string line)
         {

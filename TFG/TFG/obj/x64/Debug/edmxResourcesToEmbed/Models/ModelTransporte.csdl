@@ -35,6 +35,12 @@
       <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
       <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />
     </AssociationSet>
+    <EntitySet Name="bus_estacion" EntityType="TransportePublicoModel.bus_estacion" />
+    <EntitySet Name="bus_orden_linea" EntityType="TransportePublicoModel.bus_orden_linea" />
+    <AssociationSet Name="FK_bus_orden_linea_bus_estacion" Association="TransportePublicoModel.FK_bus_orden_linea_bus_estacion">
+      <End Role="bus_estacion" EntitySet="bus_estacion" />
+      <End Role="bus_orden_linea" EntitySet="bus_orden_linea" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_get_transfers_from_line_Result">
     <Property Type="Int32" Name="CODIGOESTACION" Nullable="false" />
@@ -206,6 +212,44 @@
         <PropertyRef Name="CODIGOESTACION" />
       </Principal>
       <Dependent Role="cercanias_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="bus_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOPARADA" Type="Int32" />
+    <Property Name="DENOMINACION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lat" Type="Double" />
+    <NavigationProperty Name="bus_orden_linea" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_estacion" ToRole="bus_orden_linea" />
+  </EntityType>
+  <EntityType Name="bus_orden_linea">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SENTIDO" Type="Int32" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="Int32" Nullable="false" />
+    <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="Double" />
+    <NavigationProperty Name="bus_estacion" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_orden_linea" ToRole="bus_estacion" />
+  </EntityType>
+  <Association Name="FK_bus_orden_linea_bus_estacion">
+    <End Type="TransportePublicoModel.bus_estacion" Role="bus_estacion" Multiplicity="1" />
+    <End Type="TransportePublicoModel.bus_orden_linea" Role="bus_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bus_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="bus_orden_linea">
         <PropertyRef Name="CODIGOESTACION" />
       </Dependent>
     </ReferentialConstraint>

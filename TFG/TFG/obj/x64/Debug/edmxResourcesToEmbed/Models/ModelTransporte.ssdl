@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bus_estacion">
+    <Key>
+      <PropertyRef Name="CODIGOESTACION" />
+    </Key>
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="CODIGOPARADA" Type="int" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" />
+    <Property Name="lon" Type="float" />
+    <Property Name="lat" Type="float" />
+  </EntityType>
+  <EntityType Name="bus_orden_linea">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="int" Nullable="false" />
+    <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SENTIDO" Type="int" Nullable="false" />
+    <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+    <Property Name="NUMEROORDEN" Type="int" Nullable="false" />
+    <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LONGITUDTRAMOANTERIOR" Type="float" Nullable="false" />
+    <Property Name="VELOCIDADTRAMOANTERIOR" Type="float" />
+  </EntityType>
   <EntityType Name="cercanias_estacion">
     <Key>
       <PropertyRef Name="CODIGOESTACION" />
@@ -82,6 +106,18 @@
     <Property Name="CECercanias" Type="int" />
     <Property Name="CELigero" Type="int" />
   </EntityType>
+  <Association Name="FK_bus_orden_linea_bus_estacion">
+    <End Role="bus_estacion" Type="Self.bus_estacion" Multiplicity="1" />
+    <End Role="bus_orden_linea" Type="Self.bus_orden_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bus_estacion">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Principal>
+      <Dependent Role="bus_orden_linea">
+        <PropertyRef Name="CODIGOESTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_cercanias_orden_linea_cercanias_estacion">
     <End Role="cercanias_estacion" Type="Self.cercanias_estacion" Multiplicity="1" />
     <End Role="cercanias_orden_linea" Type="Self.cercanias_orden_linea" Multiplicity="*" />
@@ -158,6 +194,8 @@
     <Parameter Name="line" Type="nvarchar" Mode="In" />
   </Function>
   <EntityContainer Name="TransportePublicoModelStoreContainer">
+    <EntitySet Name="bus_estacion" EntityType="Self.bus_estacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bus_orden_linea" EntityType="Self.bus_orden_linea" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cercanias_estacion" EntityType="Self.cercanias_estacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cercanias_orden_linea" EntityType="Self.cercanias_orden_linea" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ligero_estacion" EntityType="Self.ligero_estacion" Schema="dbo" store:Type="Tables" />
@@ -165,6 +203,10 @@
     <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="transbordos_ferroviarios" EntityType="Self.transbordos_ferroviarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_bus_orden_linea_bus_estacion" Association="Self.FK_bus_orden_linea_bus_estacion">
+      <End Role="bus_estacion" EntitySet="bus_estacion" />
+      <End Role="bus_orden_linea" EntitySet="bus_orden_linea" />
+    </AssociationSet>
     <AssociationSet Name="FK_cercanias_orden_linea_cercanias_estacion" Association="Self.FK_cercanias_orden_linea_cercanias_estacion">
       <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
       <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />

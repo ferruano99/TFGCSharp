@@ -7,6 +7,12 @@ body {
     text-align: center;
 }
 
+.ui-autocomplete {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 #loading {
     position: fixed;
     display: flex;
@@ -79,6 +85,9 @@ input[type="text"] {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     z-index: 1000;
     background-color: #fafafa;
+}
+.sidebar::-webkit-scrollbar {
+    width: 0;
 }
 
 .inputs {
@@ -172,3 +181,11 @@ button:focus {
     .route-selected:hover {
         background-color: hsl(132, 57%, 53%) !important;
     }
+
+.show-more {
+    margin-bottom: 3px;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+

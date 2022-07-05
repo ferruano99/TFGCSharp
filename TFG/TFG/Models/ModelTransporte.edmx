@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TransportePublicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bus_estacion">
+          <Key>
+            <PropertyRef Name="CODIGOESTACION" />
+          </Key>
+          <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+          <Property Name="CODIGOPARADA" Type="int" />
+          <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" />
+          <Property Name="lon" Type="float" />
+          <Property Name="lat" Type="float" />
+        </EntityType>
+        <EntityType Name="bus_orden_linea">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="int" Nullable="false" />
+          <Property Name="NUMEROLINEAUSUARIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SENTIDO" Type="int" Nullable="false" />
+          <Property Name="CODIGOESTACION" Type="int" Nullable="false" />
+          <Property Name="NUMEROORDEN" Type="int" Nullable="false" />
+          <Property Name="DENOMINACION" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="MUNICIPIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LONGITUDTRAMOANTERIOR" Type="float" Nullable="false" />
+          <Property Name="VELOCIDADTRAMOANTERIOR" Type="float" />
+        </EntityType>
         <EntityType Name="cercanias_estacion">
           <Key>
             <PropertyRef Name="CODIGOESTACION" />
@@ -87,6 +111,18 @@
           <Property Name="CECercanias" Type="int" />
           <Property Name="CELigero" Type="int" />
         </EntityType>
+        <Association Name="FK_bus_orden_linea_bus_estacion">
+          <End Role="bus_estacion" Type="Self.bus_estacion" Multiplicity="1" />
+          <End Role="bus_orden_linea" Type="Self.bus_orden_linea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus_estacion">
+              <PropertyRef Name="CODIGOESTACION" />
+            </Principal>
+            <Dependent Role="bus_orden_linea">
+              <PropertyRef Name="CODIGOESTACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_cercanias_orden_linea_cercanias_estacion">
           <End Role="cercanias_estacion" Type="Self.cercanias_estacion" Multiplicity="1" />
           <End Role="cercanias_orden_linea" Type="Self.cercanias_orden_linea" Multiplicity="*" />
@@ -163,6 +199,8 @@
           <Parameter Name="line" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="TransportePublicoModelStoreContainer">
+          <EntitySet Name="bus_estacion" EntityType="Self.bus_estacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_orden_linea" EntityType="Self.bus_orden_linea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cercanias_estacion" EntityType="Self.cercanias_estacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cercanias_orden_linea" EntityType="Self.cercanias_orden_linea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ligero_estacion" EntityType="Self.ligero_estacion" Schema="dbo" store:Type="Tables" />
@@ -170,6 +208,10 @@
           <EntitySet Name="metro_estacion" EntityType="Self.metro_estacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="metro_orden_linea" EntityType="Self.metro_orden_linea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transbordos_ferroviarios" EntityType="Self.transbordos_ferroviarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_bus_orden_linea_bus_estacion" Association="Self.FK_bus_orden_linea_bus_estacion">
+            <End Role="bus_estacion" EntitySet="bus_estacion" />
+            <End Role="bus_orden_linea" EntitySet="bus_orden_linea" />
+          </AssociationSet>
           <AssociationSet Name="FK_cercanias_orden_linea_cercanias_estacion" Association="Self.FK_cercanias_orden_linea_cercanias_estacion">
             <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
             <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />
@@ -233,6 +275,12 @@
           <AssociationSet Name="FK_cercanias_orden_linea_cercanias_estacion" Association="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion">
             <End Role="cercanias_estacion" EntitySet="cercanias_estacion" />
             <End Role="cercanias_orden_linea" EntitySet="cercanias_orden_linea" />
+          </AssociationSet>
+          <EntitySet Name="bus_estacion" EntityType="TransportePublicoModel.bus_estacion" />
+          <EntitySet Name="bus_orden_linea" EntityType="TransportePublicoModel.bus_orden_linea" />
+          <AssociationSet Name="FK_bus_orden_linea_bus_estacion" Association="TransportePublicoModel.FK_bus_orden_linea_bus_estacion">
+            <End Role="bus_estacion" EntitySet="bus_estacion" />
+            <End Role="bus_orden_linea" EntitySet="bus_orden_linea" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_get_transfers_from_line_Result">
@@ -409,6 +457,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="bus_estacion">
+          <Key>
+            <PropertyRef Name="CODIGOESTACION" />
+          </Key>
+          <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+          <Property Name="CODIGOPARADA" Type="Int32" />
+          <Property Name="DENOMINACION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="lon" Type="Double" />
+          <Property Name="lat" Type="Double" />
+          <NavigationProperty Name="bus_orden_linea" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_estacion" ToRole="bus_orden_linea" />
+        </EntityType>
+        <EntityType Name="bus_orden_linea">
+          <Key>
+            <PropertyRef Name="OBJECTID" />
+          </Key>
+          <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+          <Property Name="NUMEROLINEAUSUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SENTIDO" Type="Int32" Nullable="false" />
+          <Property Name="CODIGOESTACION" Type="Int32" Nullable="false" />
+          <Property Name="NUMEROORDEN" Type="Int32" Nullable="false" />
+          <Property Name="DENOMINACION" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MUNICIPIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LONGITUDTRAMOANTERIOR" Type="Double" Nullable="false" />
+          <Property Name="VELOCIDADTRAMOANTERIOR" Type="Double" />
+          <NavigationProperty Name="bus_estacion" Relationship="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" FromRole="bus_orden_linea" ToRole="bus_estacion" />
+        </EntityType>
+        <Association Name="FK_bus_orden_linea_bus_estacion">
+          <End Type="TransportePublicoModel.bus_estacion" Role="bus_estacion" Multiplicity="1" />
+          <End Type="TransportePublicoModel.bus_orden_linea" Role="bus_orden_linea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus_estacion">
+              <PropertyRef Name="CODIGOESTACION" />
+            </Principal>
+            <Dependent Role="bus_orden_linea">
+              <PropertyRef Name="CODIGOESTACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -507,6 +593,32 @@
                 <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
                 <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
                 <ScalarProperty Name="CODIGOMUNICIPIO" ColumnName="CODIGOMUNICIPIO" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
+                <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+                <ScalarProperty Name="SENTIDO" ColumnName="SENTIDO" />
+                <ScalarProperty Name="NUMEROLINEAUSUARIO" ColumnName="NUMEROLINEAUSUARIO" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_estacion">
+            <EntityTypeMapping TypeName="TransportePublicoModel.bus_estacion">
+              <MappingFragment StoreEntitySet="bus_estacion">
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
+                <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
+                <ScalarProperty Name="CODIGOPARADA" ColumnName="CODIGOPARADA" />
+                <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_orden_linea">
+            <EntityTypeMapping TypeName="TransportePublicoModel.bus_orden_linea">
+              <MappingFragment StoreEntitySet="bus_orden_linea">
+                <ScalarProperty Name="VELOCIDADTRAMOANTERIOR" ColumnName="VELOCIDADTRAMOANTERIOR" />
+                <ScalarProperty Name="LONGITUDTRAMOANTERIOR" ColumnName="LONGITUDTRAMOANTERIOR" />
+                <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
                 <ScalarProperty Name="DENOMINACION" ColumnName="DENOMINACION" />
                 <ScalarProperty Name="NUMEROORDEN" ColumnName="NUMEROORDEN" />
                 <ScalarProperty Name="CODIGOESTACION" ColumnName="CODIGOESTACION" />
