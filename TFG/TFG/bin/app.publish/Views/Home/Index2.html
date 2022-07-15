@@ -1,0 +1,35 @@
+﻿<div id="map" hidden></div>
+
+<div class="table">
+    <div id="origen">
+        <div id="write-origen">
+            <h1>Origen</h1>
+            <input type="text" name="start" id="start" class="input" placeholder="Elija un punto de partida..." />
+            <input src="../Content/Images/flecha.png" id="submit-ida" type="image">
+        </div>
+        <div id="resultados-ida" hidden>
+            <h1>Elija un sitio</h1>
+        </div>
+    </div>
+
+    <div id="destino" hidden>
+        <div id="write-destino">
+            <h1>Destino</h1>
+            <input type="text" name="end" id="destination"
+                   placeholder="Elija un punto de llegada..." /><input src="../Content/Images/flecha.png" id="submit-vuelta" type="image">
+        </div>
+        <div id="resultados-vuelta" hidden>
+            <h1>Elija un sitio</h1>
+        </div>
+    </div>
+    <button onclick="returnButton()" id="return" class="button" style="display:none">Volver</button>
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="" defer></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js" defer></script>
+<!--
+<script src="http://www.liedman.net/lrm-graphhopper/dist/lrm-graphhopper-1.2.0.js"></script>
+    -->

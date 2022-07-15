@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e81577c29d5642609009e39c1a7993d7" Name="Diagram1">
+        <EntityTypeShape EntityType="TransportePublicoModel.cercanias_estacion" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TransportePublicoModel.ligero_estacion" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="TransportePublicoModel.ligero_orden_linea" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="TransportePublicoModel.metro_estacion" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="TransportePublicoModel.metro_orden_linea" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="TransportePublicoModel.transbordos_ferroviarios" Width="1.5" PointX="3" PointY="3.125" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_cercanias_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_ligero_orden_linea_ligero_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_ligero_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_metro_orden_linea_metro_estacion" />
+        <AssociationConnector Association="TransportePublicoModel.FK_transbordos_ferroviarios_metro_estacion" />
+        <EntityTypeShape EntityType="TransportePublicoModel.cercanias_orden_linea" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="TransportePublicoModel.FK_cercanias_orden_linea_cercanias_estacion" />
+        <EntityTypeShape EntityType="TransportePublicoModel.bus_estacion" Width="1.5" PointX="5.375" PointY="1.375" />
+        <EntityTypeShape EntityType="TransportePublicoModel.bus_orden_linea" Width="1.5" PointX="7.625" PointY="1" />
+        <AssociationConnector Association="TransportePublicoModel.FK_bus_orden_linea_bus_estacion" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

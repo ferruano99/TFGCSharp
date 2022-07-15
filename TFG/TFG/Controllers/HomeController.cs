@@ -404,17 +404,28 @@ namespace TFG.Controllers
             var end = End.Split(',');
             using (var db = new TransportePublicoEntities())
             {
-                List<NodeTransport> startNodes = GetNodes(start);
-                List<NodeTransport> endNodes = GetNodes(end);
-                PTPath(startNodes, endNodes);
-                NodeTransport[] waypoints = { startNodes[0], endNodes[0] };
-
-                return Json(new
+                try
                 {
-                    //Path = Session["Path"] as List<NodeTransport>,
-                    PTransport = Session["PTransport"],
-                    Waypoints = waypoints
-                });
+                    List<NodeTransport> startNodes = GetNodes(start);
+                    List<NodeTransport> endNodes = GetNodes(end);
+                    PTPath(startNodes, endNodes);
+                    NodeTransport[] waypoints = { startNodes[0], endNodes[0] };
+                    return Json(new
+                    {
+                        Status = "Ok",
+                        PTransport = Session["PTransport"],
+                        Waypoints = waypoints
+                    });
+                }
+                catch (Exception e)
+                {
+                    return Json(new
+                    {
+                        Status = "Error" + e.Message + e.InnerException,
+                    });
+                }
+
+                
             }
         }
 

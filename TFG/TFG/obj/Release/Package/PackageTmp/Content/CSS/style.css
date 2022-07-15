@@ -1,0 +1,191 @@
+body {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+.ui-autocomplete {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#loading {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0.5;
+    background-color: #E6E4E2;
+    z-index: 1001;
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-circle-notch {
+    color: black;
+}
+
+.hide {
+    display: none !important;
+}
+
+#map {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+}
+
+
+input[type="text"] {
+    height: 2rem;
+    width: 100%;
+}
+/*input[type="image"] {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 10px;
+    transition: 0.3s;
+    position:absolute;
+
+}
+    input[type="image"]:active {*/
+/*box-shadow: inset 0px 0px 62px -22px #ABABAB,5px 5px 5px 1px #DDD !important;
+    */
+/*transition: 0.08s;
+        background-color: #cecece;
+    }
+
+    input[type="image"]:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }*/
+.ui-autocomplete {
+    position: absolute;
+    cursor: default;
+    z-index: 1000 !important;
+    text-align: left;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    background-color: white;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    z-index: 1000;
+    background-color: #fafafa;
+}
+.sidebar::-webkit-scrollbar {
+    width: 0;
+}
+
+.inputs {
+    padding: 30px 30px 0 30px;
+    font-size: 15px;
+}
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100px;
+    }
+
+    .inputs {
+        padding: 10px 2px;
+    }
+
+    #map {
+        margin-left: 100px;
+        width: calc(100% - 100px);
+        height: 100%;
+        position: absolute;
+        background-size: cover;
+    }
+}
+
+.new-section {
+    margin-bottom: 0;
+}
+
+.custom-accordion {
+    color: #444;
+    cursor: pointer;
+    padding: 18px 18px 18px 25px;
+    width: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+    .custom-accordion:after {
+        content: url('/Content/Images/icons8-flecha-ampliar-24.png'); /* Unicode character for "plus" sign (+) */
+        float: right;
+        margin-left: 5px;
+    }
+
+button:focus {
+    outline: none;
+}
+
+.active, .custom-accordion:hover {
+    background-color: #ccc;
+}
+
+    .active:after {
+        content: url('/Content/Images/icons8-flecha-contraer-24.png');
+    }
+
+.panel {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    text-align: left;
+}
+
+    .panel p {
+        margin-top: 10px;
+    }
+
+.btn-route {
+    border: 1px solid #a4a4a4;
+    background-color: #f8f9fa;
+}
+
+    .btn-route:hover {
+        border: 1px solid #a4a4a4 !important;
+    }
+
+    .btn-route:active {
+        box-shadow: inset 0 0 10px;
+        border: 1px solid #a4a4a4 !important;
+    }
+
+
+.route-selected {
+    background-color: #5fd376 !important;
+}
+
+    .route-selected:hover {
+        background-color: hsl(132, 57%, 53%) !important;
+    }
+
+.show-more {
+    margin-bottom: 3px;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+

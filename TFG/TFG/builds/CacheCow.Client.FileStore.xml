@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CacheCow.Client.FileStore</name>
+    </assembly>
+    <members>
+        <member name="T:CacheCow.Client.FileCacheStore.FileStore">
+            <summary>
+            A simple 'cache-to-file' storage with persistanty over multiple runs.
+            </summary>
+        </member>
+        <member name="F:CacheCow.Client.FileCacheStore.FileStore._cacheRoot">
+            <summary>
+            The directory location of the cache
+            </summary>
+        </member>
+        <member name="P:CacheCow.Client.FileCacheStore.FileStore.MinExpiry">
+            <summary>
+            Minimum expiry of items. Default is 6 hours.
+            Bear in mind, even expired items can be used if we do a cache validation request and get back 304
+            </summary>
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.#ctor(System.String)">
+            <summary>
+            Create a new Cachestore within the given directory. Responses will be saved in this directory.
+            The directory should not be "/", ".", "" or null.
+            Note that _all_ contents of this directory can be cleared.
+            </summary>
+            <param name="cacheRoot">The directory containing the cache</param>
+            <exception cref="T:System.ArgumentException">When the passed directory is "/", ".", ".." or ""</exception>
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.GetValueAsync(CacheCow.Common.CacheKey)">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.AddOrUpdateAsync(CacheCow.Common.CacheKey,System.Net.Http.HttpResponseMessage)">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.TryRemoveAsync(CacheCow.Common.CacheKey)">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.ClearAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheCow.Client.FileCacheStore.FileStore.IsEmpty">
+            <summary>
+            Checks if the cache is empty
+            </summary>
+            <returns>True if no files are in the current cache</returns>
+        </member>
+    </members>
+</doc>

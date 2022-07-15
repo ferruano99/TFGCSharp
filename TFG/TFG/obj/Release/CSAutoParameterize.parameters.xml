@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="TransportePublicoEntities-Web.config Connection String" description="TransportePublicoEntities Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Models.ModelTransporte.csdl|res://*/Models.ModelTransporte.ssdl|res://*/Models.ModelTransporte.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DESKTOP-FMGMIER\TFG;initial catalog=TransportePublico;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="F:\\uni\\TFG\\CSharpTFG\\TFG\\TFG\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TransportePublicoEntities']/@connectionString" />
+  </parameter>
+</parameters>

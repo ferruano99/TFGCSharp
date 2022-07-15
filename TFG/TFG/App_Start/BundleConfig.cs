@@ -23,7 +23,7 @@ namespace TFG
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/Styles").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/jquery-ui.css",
                       //"~/Content/site.css",

@@ -124,3 +124,7 @@ F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Serilog.Sinks.Console.xml
 F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Serilog.Sinks.File.pdb
 F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Serilog.Sinks.File.xml
 F:\uni\TFG\CSharpTFG\TFG\TFG\bin\System.Net.Http.Formatting.xml
+F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Microsoft.Configuration.ConfigurationBuilders.Base.dll
+F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
+F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
+F:\uni\TFG\CSharpTFG\TFG\TFG\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml
